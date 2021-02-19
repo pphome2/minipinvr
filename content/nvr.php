@@ -8,9 +8,44 @@
  #
 
 
+function file_del($all,$dir){
+	global $NVR_FILEEXT;
+
+	$r=true;
+	if ($all){
+		$files=scandir($dir);
+		foreach ($files as $entry) {
+			if ($entry!="." && $entry!=".." && $entry!="lost+found") {
+				if (is_dir($dir."/".$entry)){
+					$r=file_del(false,$dir."/".$entry);
+				}
+			}
+		}
+	}else{
+		$files=scandir($dir);
+		foreach ($files as $entry) {
+			if ($entry!="." && $entry!=".." && $entry!="lost+found") {
+				$fileext=explode('.',$entry);
+				$fileext_name=$fileext[count($fileext)-1];
+				$fileext_name2='.'.$fileext_name;
+				if ((in_array($fileext_name, $NVR_FILEEXT))or(in_array($fileext_name2, $NVR_FILEEXT))){
+					if (!unlink($dir."/".$entry)){
+						echo("Error: $entry. ");
+						$r=false;
+					}
+				}
+			}
+		}
+	}
+	return($r);
+}
+
+
 function services(){
-	global $NVR_DAY_TAG,$NVR_MAIN_TAG,
-			$L_BACKPAGE,$L_NO_AVAILABLE;
+	global $NVR_DAY_TAG,$NVR_MAIN_TAG,$NVR_SERV_TAG,$NVR_RUN_FILE,$NVR_DIR,
+			$L_BACKPAGE,$L_NO_AVAILABLE,$L_DELETE_OK,$L_MOTION_STOP,$L_MOTION_START,
+			$L_MOTION_HEAD,$L_MOTION_RUN,$L_MOTION_NORUN,$L_DELETE_OK,$L_DELETE_INFO,
+			$L_MOTION_INFO,$L_DELETE_OLD,$L_DELETE_TODAY,$MA_MENU_FIELD,$MA_MENU;
 
 	$day="";
 	if (!empty($_GET[$NVR_DAY_TAG])) {
@@ -20,21 +55,87 @@ function services(){
 		$day=0;
 	}
 
-	?>
-	<center>
-	<div class=spaceline100></div>
-	<h1><?php echo($L_NO_AVAILABLE); ?></h1>
+	if (!empty($_GET[$NVR_SERV_TAG])){
+		$f=$_GET[$NVR_SERV_TAG];
+		switch ($f){
+			case "1": 		# indító fájl a service-nek
+				$fi=$NVR_DIR."/".$NVR_RUN_FILE;
+				if (file_exists($fi)){
+					if (!unlink($fi)){
+						echo("<center>Error: $fi</center>");
+					}
+				}else{
+					$str="1";
+					if (!file_put_contents($fi,$str)){
+						echo("<center>Error: $fi</center>");
+					}
+				}
+				break;
+			case "2":		# mai rögzítés törlése
+				if (file_del(false,$NVR_DIR)){
+						echo("<center>$L_DELETE_OK</center>");
+				}
+				break;
+			case "3":		# régebbi rögzítés törlése
+				if (file_del(true,$NVR_DIR)){
+						echo("<center>$L_DELETE_OK</center>");
+				}
+				break;
+			default:
+				break;
+		}
+	}
+	if (file_exists($NVR_DIR."/".$NVR_RUN_FILE)){
+		$buttontext="$L_MOTION_START";
+		$info=$L_MOTION_RUN;
+	}else{
+		$buttontext="$L_MOTION_STOP";
+		$info=$L_MOTION_NORUN;
+	}
+	$menu=$MA_MENU[0][1];
+?>
+
 	<div class=insidecontent>
-	<div class=row>
-		<div class=col>
-			<div class=space>
-			<a onclick="window.history.back();">
-				<input type=submit id=submitar name=submitar value=<?php echo($L_BACKPAGE) ?> >
+	<h1><center><?php echo($L_MOTION_HEAD); ?> </center></h1>
+	<div class=center50>
+			<center><p><?php echo($info); ?></p>
+			<p><?php echo($L_MOTION_INFO); ?></p></center>
+			<a href=?<?php echo("$MA_MENU_FIELD=$menu&$NVR_SERV_TAG=1"); ?> >
+				<input type=submit id=submitar name=submitar value='<?php echo($buttontext) ?>' >
 			</a>
+
+		<div class=spaceline></div>
+		<div class=spaceline></div>
+			<h2><center><?php echo($L_DELETE_INFO); ?></center></h2>
+			<div class=row100>
+			<div class=col2>
+				<div class=spaceright>
+				<a href=?<?php echo("$MA_MENU_FIELD=$menu&$NVR_SERV_TAG=2"); ?> >
+					<input type=submit id=submitar name=submitar value='<?php echo($L_DELETE_TODAY) ?>' >
+				</a>
+				</div>
 			</div>
-		</div>
-		</div>
+			<div class=col2>
+				<div class=spaceleft>
+				<a href=?<?php echo("$MA_MENU_FIELD=$menu&$NVR_SERV_TAG=3"); ?> >
+					<input type=submit id=submitar name=submitar value='<?php echo($L_DELETE_OLD) ?>' >
+				</a>
+				</div>
+			</div>
+			</div>
+
 	</div>
+	</div>
+
+	<div class=spaceline></div>
+	<div class=spaceline></div>
+	<div class=spaceline></div>
+	<div class=insidecontent>
+		<a href=".?">
+			<input type=submit id=submitar name=submitar value='<?php echo($L_BACKPAGE) ?>' >
+		</a>
+	</div>
+
 	<?php
 }
 

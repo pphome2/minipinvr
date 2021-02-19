@@ -176,6 +176,12 @@ li:last-child {
 	text-align:center !important;
 }
 
+.center50 {
+	padding-left:25%;
+	width:50%;
+	text-align:left !important;
+}
+
 .container {
 	position:relative;
 	display:block;
@@ -495,3 +501,12 @@ img {
 .space{
 	padding:5px;
 }
+
+.spaceright{
+	padding-right:5px;
+}
+
+.spaceleft{
+	padding-left:5px;
+}
+

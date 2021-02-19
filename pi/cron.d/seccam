@@ -1,0 +1,4 @@
+# NVR napi videók mentése
+
+0 0 * * *     root   /usr/local/bin/seccam
+*/5 * * * *   root   /usr/local/bin/seccam_serv

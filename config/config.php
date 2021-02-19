@@ -127,10 +127,7 @@ $NVR_DIR='./seccam';
 $NVR_DIR_DAYS=array('0','1','2','3');
 
 # directories, files
-#$NVR_CSS="nvr.css";
-#$NVR_LANG="nvr_lang.php";
-#$NVR_VIDEO_PLAYER="nvr_video.php";
-#$NVR_PRG="nvr.php";
+$NVR_RUN_FILE="nvr.run";
 
 # page parameter
 $NVR_TAG="v";
@@ -138,6 +135,7 @@ $NVR_DAY_TAG="d";
 $NVR_SERVICE_TAG="s";
 $NVR_DEL_TAG="r";
 $NVR_MAIN_TAG="x";
+$NVR_SERV_TAG="s";
 
 # video dimension
 $NVR_WIDTH="65%";

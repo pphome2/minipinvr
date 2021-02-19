@@ -65,5 +65,19 @@ $L_SERVICES="Szolgáltatások";
 $L_DELETE="Törlés";
 $L_FILENAME="Fájlnév";
 $L_DEL_CONF="Valóban törölni akarja a tárolt fájlt?";
+$L_MOTION_HEAD="A rögzítés állapota";
+$L_MOTION_RUN="A rögzítő program fut.";
+$L_MOTION_NORUN="A rögzítő program nem fut.";
+$L_MOTION_START="A rögzítés leállítása";
+$L_MOTION_STOP="A rögzítés indítása";
+$L_MOTION_INFO="A rögzítést egy rendszer szolgáltatás végzi. 
+				Pár perc szükséges, hogy a leállítási vagy indítási 
+				utasítás érvénybe lépjen. Pár perc múlva ellenőrizze 
+				fut-e a rögzítő program. (Új rögzített fjlok megjelenése.)";
+$L_DELETE_INFO="Rögzített fájlok törlése";
+$L_DELETE_OLD="Előző napok törlése";
+$L_DELETE_TODAY="Mai nap törlése";
+$L_DELETE_OK="A törlés megtörtént.";
+
 
 ?>

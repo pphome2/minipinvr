@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# NVR napi mantés a mozgás video fájlokról
+# cron.d: */5 * * * *   root   /usr/local/bin/seccam_serv
+
+d=`pwd`
+
+cd /home/video/SecCam
+
+filename=nvr.run
+
+if test -f "$filename"; then
+	process=`pgrep motion`
+	pkill motion
+	echo "$process exists."
+	#kill $process
+else
+	motion
+fi
+
+cd $d
