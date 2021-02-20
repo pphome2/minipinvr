@@ -78,6 +78,6 @@ $L_DELETE_INFO="Rögzített fájlok törlése";
 $L_DELETE_OLD="Előző napok törlése";
 $L_DELETE_TODAY="Mai nap törlése";
 $L_DELETE_OK="A törlés megtörtént.";
-
+$L_FILTER="Szűrés";
 
 ?>

@@ -14,4 +14,23 @@ if ($MA_LOGGEDIN){
 }
 ?>
 
+
+function tfilter(inname) {
+	var input, sfilter, table, tr, td, i;
+	input = document.getElementById(inname);
+	sfilter = input.value.toUpperCase();
+	table = document.getElementById("ktable");
+	tr = table.getElementsByTagName("tr");
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td")[0];
+		if (td) {
+			if (td.innerHTML.toUpperCase().indexOf(sfilter) > -1) {
+				tr[i].style.display = "";
+			} else {
+				tr[i].style.display = "none";
+			}
+		}
+	}
+}
+
 </script>

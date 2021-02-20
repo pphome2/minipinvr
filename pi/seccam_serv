@@ -8,14 +8,16 @@ d=`pwd`
 cd /home/video/SecCam
 
 filename=nvr.run
+process=`pgrep motion`
 
 if test -f "$filename"; then
-	process=`pgrep motion`
-	pkill motion
-	echo "$process exists."
-	#kill $process
+    if [ "$process" == "" ]; then
+	motion 2>>/dev/null >>/dev/null
+    fi
 else
-	motion
+    pkill motion 2>>/dev/null >>/dev/null
+    #echo "$process exists."
+    #kill $process
 fi
 
 cd $d

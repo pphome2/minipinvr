@@ -361,11 +361,26 @@ function main_table(){
 function filetable($dir,$day){
 	global $NVR_FILEEXT,$L_DOWNLOAD_TEXT,$L_TABLE,$NVR_VIDEO_PLAYER,
 			$NVR_TAG,$NVR_DEL_TAG,$NVR_DAY_TAG,
-			$L_PLAYER,$L_DOWNLOAD,$L_DELETE;
+			$L_PLAYER,$L_DOWNLOAD,$L_DELETE,$L_FILTER;
 
 	$files=scandir($dir,SCANDIR_SORT_DESCENDING);
-	$fdb=0;
-	echo("<table class='df_table_full'>");
+	usort($files, function ($a, $b){
+		$s1=strtotime(substr($b,strlen($b)-12,8));
+		$s2=strtotime(substr($a,strlen($a)-12,8));
+		return  $s1-$s2;
+	});
+	$files=scandir($dir,SCANDIR_SORT_DESCENDING);
+	usort($files, function ($a, $b){
+		$s1=strtotime(substr($b,strlen($b)-12,8));
+		$s2=strtotime(substr($a,strlen($a)-12,8));
+		return  $s1-$s2;
+	});
+	echo("<div class=filter>");
+	echo('<input type="text" placeholder=\''.$L_FILTER.'\' id="filterin" autofocus
+			onkeyup="tfilter(\'filterin\')"
+			onclick="this.value=\'\'">');
+	echo("</div>");
+	echo("<table class='df_table_full' id='ktable'>");
 	echo("<tr class='df_trh'>");
 	echo("<th class='df_th1'>$L_TABLE[0]</th>");
 	echo("<th class='df_th2'>$L_TABLE[1]</th>");
