@@ -112,7 +112,9 @@ if (file_exists("$MA_CONFIG_DIR/$MA_LANGFILE")){
 # local app config, variables
 
 $MA_MENU=array(
-				array($L_MENU1,"services")
+				array($L_MENU3,"today"),
+				array($L_MENU1,"services"),
+				array($L_MENU2,"store")
 			);
 
 #$MA_ADMINMENU=array(
@@ -123,11 +125,12 @@ $MA_MENU=array(
 # program parameters
 $NVR_FILEEXT=array('mp4','jpg');
 $NVR_SUPPORT_VIDEO=array('mp4');
-$NVR_DIR='./seccam';
 $NVR_DIR_DAYS=array('0','1','2','3');
 
 # directories, files
+$NVR_DIR='./seccam';
 $NVR_RUN_FILE="nvr.run";
+$NVR_STORE_DIR="TT";
 
 # page parameter
 $NVR_TAG="v";
@@ -136,6 +139,7 @@ $NVR_SERVICE_TAG="s";
 $NVR_DEL_TAG="r";
 $NVR_MAIN_TAG="x";
 $NVR_SERV_TAG="s";
+$NVR_STORE_TAG="t";
 
 # video dimension
 $NVR_WIDTH="65%";

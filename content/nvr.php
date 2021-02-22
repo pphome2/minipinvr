@@ -8,8 +8,19 @@
  #
 
 
+
+function store(){
+	main_table();
+}
+
+
+function today(){
+	main_table();
+}
+
+
 function file_del($all,$dir){
-	global $NVR_FILEEXT;
+	global $NVR_FILEEXT,$L_ERROR;
 
 	$r=true;
 	if ($all){
@@ -30,7 +41,7 @@ function file_del($all,$dir){
 				$fileext_name2='.'.$fileext_name;
 				if ((in_array($fileext_name, $NVR_FILEEXT))or(in_array($fileext_name2, $NVR_FILEEXT))){
 					if (!unlink($dir."/".$entry)){
-						echo("Error: $entry. ");
+						echo("$L_ERROR: $entry. ");
 						$r=false;
 					}
 				}
@@ -45,7 +56,8 @@ function services(){
 	global $NVR_DAY_TAG,$NVR_MAIN_TAG,$NVR_SERV_TAG,$NVR_RUN_FILE,$NVR_DIR,
 			$L_BACKPAGE,$L_NO_AVAILABLE,$L_DELETE_OK,$L_MOTION_STOP,$L_MOTION_START,
 			$L_MOTION_HEAD,$L_MOTION_RUN,$L_MOTION_NORUN,$L_DELETE_OK,$L_DELETE_INFO,
-			$L_MOTION_INFO,$L_DELETE_OLD,$L_DELETE_TODAY,$MA_MENU_FIELD,$MA_MENU;
+			$L_MOTION_INFO,$L_DELETE_OLD,$L_DELETE_TODAY,$MA_MENU_FIELD,$MA_MENU,
+			$L_ERROR;
 
 	$day="";
 	if (!empty($_GET[$NVR_DAY_TAG])) {
@@ -62,12 +74,12 @@ function services(){
 				$fi=$NVR_DIR."/".$NVR_RUN_FILE;
 				if (file_exists($fi)){
 					if (!unlink($fi)){
-						echo("<center>Error: $fi</center>");
+						echo("<center>$L_ERROR: $fi</center>");
 					}
 				}else{
 					$str="1";
 					if (!file_put_contents($fi,$str)){
-						echo("<center>Error: $fi</center>");
+						echo("<center>$L_ERROR: $fi</center>");
 					}
 				}
 				break;
@@ -207,8 +219,9 @@ function main_del(){
 
 function main_video(){
 	global $NVR_TAG,$L_NOFILE,$NVR_SUPPORT_VIDEO,$NVR_WIDTH,$NVR_HEIGHT,
-			$NVR_DAY_TAG,$NVR_DEL_TAG,
-			$L_ERROR_VIDEO,$L_DOWNLOAD_TEXT,$L_BACKPAGE,$L_NOFILE,$L_DELETE;
+			$NVR_DAY_TAG,$NVR_DEL_TAG,$NVR_STORE_DIR,$NVR_STORE_TAG,$NVR_DIR,
+			$L_ERROR_VIDEO,$L_DOWNLOAD_TEXT,$L_BACKPAGE,$L_NOFILE,$L_DELETE,
+			$L_STORE_COPYTO,$L_STORE_COPY,$L_STORE_FILE_EXISTS,$L_ERROR;
 
 	$day="";
 	if (!empty($_GET[$NVR_DAY_TAG])) {
@@ -217,7 +230,10 @@ function main_video(){
 	if (empty($day)){
 		$day=0;
 	}
-
+	$store=false;
+	if ($day===$NVR_STORE_DIR){
+		$store=true;
+	}
 	$videofile="";
 	if (!empty($_GET[$NVR_TAG])) {
 		$videofile=$_GET[$NVR_TAG];
@@ -236,6 +252,28 @@ function main_video(){
 	}
 
 	echo("<center>");
+	$vf="";
+	if (!empty($_GET[$NVR_STORE_TAG])) {
+		if (file_exists($videofile)) {
+			$ot=explode("/",$videofile);
+			$of=$ot[count($ot)-1];
+			$vf=$NVR_DIR."/".$NVR_STORE_DIR."/".$of;
+			if (file_exists($vf)){
+					echo("$L_STORE_FILE_EXISTS: $videofile");
+			}else{
+				if (copy($videofile,$vf)){
+					echo("$L_STORE_COPY: $videofile");
+				}else{
+					echo("$L_ERROR: $videofile");
+				}
+			}
+		}else{
+			echo("$L_ERROR: $videofile");
+		}
+		echo("<br /><br />");
+	}else{
+	}
+
 	if (!empty($videofile)){
 		$fileext=explode('.',$videofile);
 		$fileext_name=$fileext[count($fileext)-1];
@@ -250,24 +288,41 @@ function main_video(){
 ?>
 		<div class=insidecontent>
 		<div class=row>
-			<div class=col3>
+			<div class=col4>
 				<div class=space>
 				<a href='<?php echo("?$NVR_DAY_TAG=$day&$NVR_DEL_TAG=$videofile"); ?>' >
-					<input type=submit id=submitar name=submitar value=<?php echo($L_DELETE) ?> >
+					<input type=submit id=submitar name=submitar value='<?php echo($L_DELETE) ?>' >
 				</a>
 				</div>
 			</div>
-			<div class=col3>
+			<div class=col4>
 				<div class=space>
 				<a href='<?php echo($videofile); ?>' download >
-					<input type=submit id=submitar name=submitar value=<?php echo($L_DOWNLOAD_TEXT) ?> >
+					<input type=submit id=submitar name=submitar value='<?php echo($L_DOWNLOAD_TEXT) ?>' >
 				</a>
 				</div>
 			</div>
-			<div class=col3>
+			<div class=col4>
+				<div class=space>
+				<?php
+				if (file_exists($vf)){
+				?>
+					<input type=submit id=submitar name=submitar value='<?php echo($L_STORE_FILE_EXISTS) ?>' >
+				<?php
+				}else{
+				?>
+				<a href='<?php echo("?$NVR_DAY_TAG=$day&$NVR_TAG=$videofile&$NVR_STORE_TAG=1"); ?>' >
+					<input type=submit id=submitar name=submitar value='<?php echo($L_STORE_COPYTO) ?>' >
+				</a>
+				<?php
+				}
+				?>
+				</div>
+			</div>
+			<div class=col4>
 				<div class=space>
 				<a onclick="window.history.back();">
-					<input type=submit id=submitar name=submitar value=<?php echo($L_BACKPAGE) ?> >
+					<input type=submit id=submitar name=submitar value='<?php echo($L_BACKPAGE) ?>' >
 				</a>
 				</div>
 			</div>
@@ -293,34 +348,50 @@ function main_video(){
 
 function main_table(){
 	global $NVR_DAY_TAG,$NVR_DIR,$L_DAYS,$NVR_DIR_DAYS,$NVR_DEL_TAG,
-			$L_DAYS;
+			$NVR_STORE_DIR,$MA_MENU_FIELD,$MA_MENU,
+			$L_DAYS,$L_ERROR,$L_STORE;
 
 	if (!empty($_GET[$NVR_DEL_TAG])) {
 		$del=$_GET[$NVR_DEL_TAG];
 		if (file_exists($del)){
 			if (!unlink($del)){
-				echo("Error: $del");
+				echo("$L_ERROR: $del");
 			}
 		}
 	} else {
 		$del="";
 	}
-
+	$store=false;
+	if (!empty($_GET[$MA_MENU_FIELD])){
+		if ($_GET[$MA_MENU_FIELD]!==$MA_MENU[0][1]){
+			$store=true;
+		}
+	}
 	if (!empty($_GET[$NVR_DAY_TAG])) {
 		$day=$_GET[$NVR_DAY_TAG];
-	} else {
-		$day="0";
+		if ($day===$NVR_STORE_DIR){
+			$store=true;
+		}
 	}
-	$activebutton=array('','','','');
-	$activebutton[$day]='style=\'color:black;\'';
-	$aktdir=$NVR_DIR;
-	if ($day<>"0") {
-		$aktdir=$aktdir."/".$NVR_DIR_DAYS[$day];
-		$thispage=$L_DAYS[$day];
+	if ($store){
+		$day=$NVR_STORE_DIR;
+		$store=true;
+		$aktdir=$NVR_DIR."/".$NVR_STORE_DIR;
 	}else{
-		$thispage=$L_DAYS[0];
-	}
-
+		if (!empty($_GET[$NVR_DAY_TAG])) {
+			$day=$_GET[$NVR_DAY_TAG];
+		} else {
+			$day="0";
+		}
+		$activebutton=array('','','','');
+		$activebutton[$day]='style=\'color:black;\'';
+		$aktdir=$NVR_DIR;
+		if ($day<>"0") {
+			$aktdir=$aktdir."/".$NVR_DIR_DAYS[$day];
+			$thispage=$L_DAYS[$day];
+		}else{
+			$thispage=$L_DAYS[0];
+		}
 	?>
 	<div class=row>
 		<div class=col4>
@@ -354,14 +425,15 @@ function main_table(){
 	</div>
 
 	<?php 
+	}
 	filetable($aktdir,$day);
 }
 
 
 function filetable($dir,$day){
 	global $NVR_FILEEXT,$L_DOWNLOAD_TEXT,$L_TABLE,$NVR_VIDEO_PLAYER,
-			$NVR_TAG,$NVR_DEL_TAG,$NVR_DAY_TAG,
-			$L_PLAYER,$L_DOWNLOAD,$L_DELETE,$L_FILTER;
+			$NVR_TAG,$NVR_DEL_TAG,$NVR_DAY_TAG,$NVR_STORE_DIR,
+			$L_PLAYER,$L_DOWNLOAD,$L_DELETE,$L_FILTER,$L_STORE;
 
 	$files=scandir($dir,SCANDIR_SORT_DESCENDING);
 	usort($files, function ($a, $b){
@@ -375,8 +447,13 @@ function filetable($dir,$day){
 		$s2=strtotime(substr($a,strlen($a)-12,8));
 		return  $s1-$s2;
 	});
+	if ($day===$NVR_STORE_DIR){
+		$fil=$L_FILTER." - ".$L_STORE;
+	}else{
+		$fil=$L_FILTER;
+	}
 	echo("<div class=filter>");
-	echo('<input type="text" placeholder=\''.$L_FILTER.'\' id="filterin" autofocus
+	echo('<input type="text" placeholder=\''.$fil.'\' id="filterin" autofocus
 			onkeyup="tfilter(\'filterin\')"
 			onclick="this.value=\'\'">');
 	echo("</div>");
@@ -395,8 +472,7 @@ function filetable($dir,$day){
 			if ((in_array($fileext_name, $NVR_FILEEXT))or(in_array($fileext_name2, $NVR_FILEEXT))){
 				echo("<tr class='df_tr'>");
 				$fileext_name=strtoupper($fileext_name);
-				echo("<td class='df_td'><span class='df_tds'>[$fileext_name]</span> ");
-				echo("<a href='$dir/$entry' target='$target' class='df_tda'>$entry</a>");
+				echo("<td class='df_td'>$entry");
 				echo("</td>");
 				echo("<td class='df_td2'>");
 				echo("<a href='?$NVR_DAY_TAG=$day&$NVR_DEL_TAG=$dir/$entry' class='df_tda2'>$L_DELETE</a>");

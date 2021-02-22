@@ -46,8 +46,8 @@ $L_PRIVACY_TEXT=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
 # local app zone / a pragram saját mezői
 
 $L_MENU1="Szolgáltatások";
-
-$L_MENU2="AdminLista";
+$L_MENU2="Tartós tároló";
+$L_MENU3="Ma";
 
 $L_APPNAME="NVR";
 
@@ -79,5 +79,10 @@ $L_DELETE_OLD="Előző napok törlése";
 $L_DELETE_TODAY="Mai nap törlése";
 $L_DELETE_OK="A törlés megtörtént.";
 $L_FILTER="Szűrés";
+$L_ERROR="Hiba történt";
+$L_STORE="Tartós tároló";
+$L_STORE_COPYTO="Tatrós tárolóba";
+$L_STORE_COPY="Tartós tárolóba másolva";
+$L_STORE_FILE_EXISTS="Fájl már a tárolóban";
 
 ?>
