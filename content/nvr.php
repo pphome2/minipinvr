@@ -41,7 +41,7 @@ function file_del($all,$dir){
 				$fileext_name2='.'.$fileext_name;
 				if ((in_array($fileext_name, $NVR_FILEEXT))or(in_array($fileext_name2, $NVR_FILEEXT))){
 					if (!unlink($dir."/".$entry)){
-						echo("$L_ERROR: $entry. ");
+						echo("<div class=errorbar>$L_ERROR: $entry</div>");
 						$r=false;
 					}
 				}
@@ -49,106 +49,6 @@ function file_del($all,$dir){
 		}
 	}
 	return($r);
-}
-
-
-function services(){
-	global $NVR_DAY_TAG,$NVR_MAIN_TAG,$NVR_SERV_TAG,$NVR_RUN_FILE,$NVR_DIR,
-			$L_BACKPAGE,$L_NO_AVAILABLE,$L_DELETE_OK,$L_MOTION_STOP,$L_MOTION_START,
-			$L_MOTION_HEAD,$L_MOTION_RUN,$L_MOTION_NORUN,$L_DELETE_OK,$L_DELETE_INFO,
-			$L_MOTION_INFO,$L_DELETE_OLD,$L_DELETE_TODAY,$MA_MENU_FIELD,$MA_MENU,
-			$L_ERROR;
-
-	$day="";
-	if (!empty($_GET[$NVR_DAY_TAG])) {
-		$day=$_GET[$NVR_DAY_TAG];
-	}
-	if (empty($day)){
-		$day=0;
-	}
-
-	if (!empty($_GET[$NVR_SERV_TAG])){
-		$f=$_GET[$NVR_SERV_TAG];
-		switch ($f){
-			case "1": 		# indító fájl a service-nek
-				$fi=$NVR_DIR."/".$NVR_RUN_FILE;
-				if (file_exists($fi)){
-					if (!unlink($fi)){
-						echo("<center>$L_ERROR: $fi</center>");
-					}
-				}else{
-					$str="1";
-					if (!file_put_contents($fi,$str)){
-						echo("<center>$L_ERROR: $fi</center>");
-					}
-				}
-				break;
-			case "2":		# mai rögzítés törlése
-				if (file_del(false,$NVR_DIR)){
-						echo("<center>$L_DELETE_OK</center>");
-				}
-				break;
-			case "3":		# régebbi rögzítés törlése
-				if (file_del(true,$NVR_DIR)){
-						echo("<center>$L_DELETE_OK</center>");
-				}
-				break;
-			default:
-				break;
-		}
-	}
-	if (file_exists($NVR_DIR."/".$NVR_RUN_FILE)){
-		$buttontext="$L_MOTION_START";
-		$info=$L_MOTION_RUN;
-	}else{
-		$buttontext="$L_MOTION_STOP";
-		$info=$L_MOTION_NORUN;
-	}
-	$menu=$MA_MENU[0][1];
-?>
-
-	<div class=insidecontent>
-	<h1><center><?php echo($L_MOTION_HEAD); ?> </center></h1>
-	<div class=center50>
-			<center><p><?php echo($info); ?></p>
-			<p><?php echo($L_MOTION_INFO); ?></p></center>
-			<a href=?<?php echo("$MA_MENU_FIELD=$menu&$NVR_SERV_TAG=1"); ?> >
-				<input type=submit id=submitar name=submitar value='<?php echo($buttontext) ?>' >
-			</a>
-
-		<div class=spaceline></div>
-		<div class=spaceline></div>
-			<h2><center><?php echo($L_DELETE_INFO); ?></center></h2>
-			<div class=row100>
-			<div class=col2>
-				<div class=spaceright>
-				<a href=?<?php echo("$MA_MENU_FIELD=$menu&$NVR_SERV_TAG=2"); ?> >
-					<input type=submit id=submitar name=submitar value='<?php echo($L_DELETE_TODAY) ?>' >
-				</a>
-				</div>
-			</div>
-			<div class=col2>
-				<div class=spaceleft>
-				<a href=?<?php echo("$MA_MENU_FIELD=$menu&$NVR_SERV_TAG=3"); ?> >
-					<input type=submit id=submitar name=submitar value='<?php echo($L_DELETE_OLD) ?>' >
-				</a>
-				</div>
-			</div>
-			</div>
-
-	</div>
-	</div>
-
-	<div class=spaceline></div>
-	<div class=spaceline></div>
-	<div class=spaceline></div>
-	<div class=insidecontent>
-		<a href=".?">
-			<input type=submit id=submitar name=submitar value='<?php echo($L_BACKPAGE) ?>' >
-		</a>
-	</div>
-
-	<?php
 }
 
 
@@ -259,16 +159,16 @@ function main_video(){
 			$of=$ot[count($ot)-1];
 			$vf=$NVR_DIR."/".$NVR_STORE_DIR."/".$of;
 			if (file_exists($vf)){
-					echo("$L_STORE_FILE_EXISTS: $videofile");
+					echo("<div class=infobar>$L_STORE_FILE_EXISTS: $videofile</div>");
 			}else{
 				if (copy($videofile,$vf)){
-					echo("$L_STORE_COPY: $videofile");
+					echo("<div class=infobar>$L_STORE_COPY: $videofile</div>");
 				}else{
-					echo("$L_ERROR: $videofile");
+					echo("<div class=errorbar>$L_ERROR: $videofile</div>");
 				}
 			}
 		}else{
-			echo("$L_ERROR: $videofile");
+			echo("<div class=errorbar>$L_ERROR: $videofile</div>");
 		}
 		echo("<br /><br />");
 	}else{
@@ -280,7 +180,7 @@ function main_video(){
 		if (in_array($fileext_name,$NVR_SUPPORT_VIDEO)){
 			echo("<video width=$NVR_WIDTH height=$NVR_HEIGHT controls>");
 			echo("<source src=$videofile type=video/mp4>");
-			echo($L_ERROR_VIDEO);
+			echo("<div class=errorbar>$L_ERROR_VIDEO</div>");
 			echo("</video>");
 		}else{
 			echo("<img width=$NVR_WIDTH height=$NVR_HEIGHT src=$videofile>");
@@ -335,7 +235,7 @@ function main_video(){
 ?>
 
 		<div class=insidecontent>
-			<p><?php echo($L_NOFILE); ?></p>
+			echo("<div class=errorbar>$L_NOFILE</div>");
 			<a onclick="window.history.back();">
 				<input type=submit id=submitar name=submitar value=<?php echo($L_BACKPAGE) ?> >
 			</a>
@@ -355,7 +255,7 @@ function main_table(){
 		$del=$_GET[$NVR_DEL_TAG];
 		if (file_exists($del)){
 			if (!unlink($del)){
-				echo("$L_ERROR: $del");
+				echo("<div class=errorbar>$L_ERROR: $del</div>");
 			}
 		}
 	} else {

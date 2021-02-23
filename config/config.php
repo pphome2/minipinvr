@@ -48,6 +48,7 @@ $MA_LIB=array(
 # local app admin file
 $MA_APPFILE=array(
 					"$MA_CONTENT_DIR/nvr.php",
+					"$MA_CONTENT_DIR/nvr_serv.php",
 					"$MA_CONTENT_DIR/nvr_func.php"
 				);
 
@@ -130,6 +131,7 @@ $NVR_DIR_DAYS=array('0','1','2','3');
 # directories, files
 $NVR_DIR='./seccam';
 $NVR_RUN_FILE="nvr.run";
+$NVR_TIME_FILE="time.run";
 $NVR_STORE_DIR="TT";
 
 # page parameter

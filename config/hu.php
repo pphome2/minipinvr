@@ -84,5 +84,15 @@ $L_STORE="Tartós tároló";
 $L_STORE_COPYTO="Tatrós tárolóba";
 $L_STORE_COPY="Tartós tárolóba másolva";
 $L_STORE_FILE_EXISTS="Fájl már a tárolóban";
+$L_TIME_CONFIG="Időzítő";
+$L_TIME_SAVE="Mentés";
+$L_TIME_DAYS=array('Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat','Vasárnap');
+$L_TIME_TABLE=array('Nap','Bekapcsolás','Kikapcsolás','Éjszaka');
+$L_TIME_SAVED="Az időadatok mentése megtörtént.";
+$L_TIME_INFO="A napközbeni és éjszakai bekapcsolt üzemmód beállítása.
+				A rögzítés indítását és leállítását egy rendszerfolyamat végzi,
+				 ami pár percenként ellenőrzi a beállításokat. A beállítások pár
+				 perc utá lépnek életbe. <br><br> (Éjszaka: 21:00-06:00)";
+
 
 ?>
