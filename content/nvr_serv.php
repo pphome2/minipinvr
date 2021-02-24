@@ -64,6 +64,7 @@ function services(){
 	}
 	$menu=$MA_MENU[0][1];
 
+	$of=$NVR_DIR."/".$NVR_TIME_FILE;
 	if (isset($_POST["submittime"])){
 		$db=count($L_TIME_DAYS);
 		$out="";
@@ -87,6 +88,27 @@ function services(){
 			echo("<div class=errorbar>$L_ERROR</div>");
 		}
 	}
+		$timedata=array();
+	if (file_exists($of)){
+		$lines=file($of);
+		for($i=0;$i<count($lines);$i++){
+			$ol=explode("-",$lines[$i]);
+			$timedata[$i][0]=$ol[0];
+			$timedata[$i][1]=$ol[1];
+			if (trim($ol[2])=="X"){
+				$timedata[$i][2]="checked";
+			}else{
+				$timedata[$i][2]="";
+			}
+		}
+	}else{
+		for($i=0;$i<7;$i++){
+			$timedata[$i][0]="06:00";
+			$timedata[$i][1]="06:00";
+			$timedata[$i][2]="";
+		}
+	}
+
 
 ?>
 
@@ -142,13 +164,13 @@ function services(){
 							<?php echo($L_TIME_DAYS[$i]); ?>
 						</td>
 						<td class="df_td">
-							<input type=time id='nap1<?php echo($i); ?>' name='nap1<?php echo($i); ?>' min="00:00" max="23:50" step="60" value="06:00" >
+							<input type=time id='nap1<?php echo($i); ?>' name='nap1<?php echo($i); ?>' min="00:00" max="23:50" step="60" value="<?php echo($timedata[$i][0]); ?>" >
 						</td>
 						<td class="df_td">
-							<input type=time id='nap2<?php echo($i); ?>' name='nap2<?php echo($i); ?>' min="00:00" max="23:50" step="60" value="06:00" >
+							<input type=time id='nap2<?php echo($i); ?>' name='nap2<?php echo($i); ?>' min="00:00" max="23:50" step="60" value="<?php echo($timedata[$i][1]); ?>" >
 						</td>
 						<td class="df_td">
-							<input type=checkbox id='ej<?php echo($i); ?>' name='ej<?php echo($i); ?>'  >
+							<input type=checkbox id='ej<?php echo($i); ?>' <?php echo($timedata[$i][2]); ?> name='ej<?php echo($i); ?>'  >
 						</td>
 						</tr>
 					<?php } ?>
