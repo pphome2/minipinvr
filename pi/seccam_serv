@@ -1,17 +1,18 @@
 #!/bin/bash
 
-# NVR napi mantés a mozgás video fájlokról
+# NVR időbeállítások feldolgozása
 # cron.d: */5 * * * *   root   /usr/local/bin/seccam_serv
 
-d=`pwd`
-
-cd /home/video/SecCam
+night="21:00"
+morning="06:00"
 
 filename=nvr.run
 timefilename=time.run
 process=`pgrep motion`
-night="21:00"
-morning="06:00"
+#process="test"
+
+d=`pwd`
+cd /home/video/SecCam
 
 date
 
@@ -39,6 +40,7 @@ if test -f "$filename"; then
 			start=true
 			echo "Megadott intervallumban vagyunk"
 		else
+			start=false
 			echo "Megadott intervallumon kívül vagyunk"
 		fi
 		if [ "$t3" == "X" ]; then
@@ -49,21 +51,33 @@ if test -f "$filename"; then
 				start=true
 				echo " - éjszaka van"
 			else
+				#start=false
 				echo " - nincs éjszaka"
 			fi
 		fi
 	fi
-	if [ $start ] ; then
+	if [ $start == true ]; then
 		if [ "$process" == "" ]; then
 			motion 2>>/dev/null >>/dev/null
 			echo "Rögzítés indítása"
 		else
 			echo "Rögzítés már fut"
 		fi
+	else
+		if [ "$process" == "" ]; then
+			echo "Rögzítés nem fut"
+		else
+			echo "Rögzítés leállítása [$process]"
+			pkill motion 2>>/dev/null >>/dev/null
+		fi
 	fi
 else
-	echo "Rögzítés leállítása"
-	pkill motion 2>>/dev/null >>/dev/null
+	if [ "$process" == "" ]; then
+		echo "Rögzítés nem fut"
+	else
+		echo "Rögzítés leállítása [$process]"
+		pkill motion 2>>/dev/null >>/dev/null
+	fi
 	#echo "$process exists."
 	#kill $process
 fi
