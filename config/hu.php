@@ -45,9 +45,10 @@ $L_PRIVACY_TEXT=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
 
 # local app zone / a pragram saját mezői
 
-$L_MENU1="Szolgáltatások";
-$L_MENU2="Tartós tároló";
-$L_MENU3="Ma";
+$L_MENU_SERVICES="Szolgáltatások";
+$L_MENU_STORE="Tartós tároló";
+$L_MENU_TODAY="Ma";
+$L_MENU_LIVE="Élőkép";
 
 $L_APPNAME="NVR";
 
@@ -93,6 +94,6 @@ $L_TIME_INFO="A napközbeni és éjszakai bekapcsolt üzemmód beállítása.
 				A rögzítés indítását és leállítását egy rendszerfolyamat végzi,
 				 ami pár percenként ellenőrzi a beállításokat. A beállítások pár
 				 perc utá lépnek életbe. <br><br> (Éjszaka: 21:00-06:00)";
-
+$L_LIVE_VIEW="Élőkép";
 
 ?>

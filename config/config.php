@@ -49,6 +49,7 @@ $MA_LIB=array(
 $MA_APPFILE=array(
 					"$MA_CONTENT_DIR/nvr.php",
 					"$MA_CONTENT_DIR/nvr_serv.php",
+					"$MA_CONTENT_DIR/nvr_view.php",
 					"$MA_CONTENT_DIR/nvr_func.php"
 				);
 
@@ -112,10 +113,12 @@ if (file_exists("$MA_CONFIG_DIR/$MA_LANGFILE")){
 
 # local app config, variables
 
+# manuname and function name
 $MA_MENU=array(
-				array($L_MENU3,"today"),
-				array($L_MENU1,"services"),
-				array($L_MENU2,"store")
+				array($L_MENU_TODAY,"today"),
+				array($L_MENU_SERVICES,"services"),
+				array($L_MENU_STORE,"store"),
+				array($L_MENU_LIVE,"liveview")
 			);
 
 #$MA_ADMINMENU=array(
