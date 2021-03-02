@@ -33,4 +33,16 @@ function tfilter(inname) {
 	}
 }
 
+
+function hidethis(th){
+	th.style.display="none";
+	document.getElementById("id_view").style.display="none";
+}
+
+function imgview(imgsrc,imgname){
+	document.getElementById("id_view").style.display="block";
+	document.getElementById("id_img").src=imgsrc;
+	document.getElementById("id_name").innerHTML=imgname;
+}
+
 </script>
