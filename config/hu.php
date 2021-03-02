@@ -95,5 +95,8 @@ $L_TIME_INFO="A napközbeni és éjszakai bekapcsolt üzemmód beállítása.
 				 ami pár percenként ellenőrzi a beállításokat. A beállítások pár
 				 perc utá lépnek életbe. <br><br> (Éjszaka: 21:00-06:00)";
 $L_LIVE_VIEW="Élőkép";
+$L_CAM_1="Nappali";
+$L_CAM_2="Konyha";
+$L_CAM_3="Előszoba";
 
 ?>
