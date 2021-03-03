@@ -151,15 +151,17 @@ $NVR_WIDTH="65%";
 $NVR_HEIGHT="65%";
 
 # live cam stream (from motion)
-$NVR_LIVE_STREAM=array(
-						array($L_CAM_1,'http://192.168.10.200:8081/1/stream'),
-						array($L_CAM_2,'http://192.168.10.200:8081/2/stream'),
-						array($L_CAM_3,'http://192.168.10.200:8081/3/stream')
-					);
 #$NVR_LIVE_STREAM=array(
-#						array($L_CAM_1,'seccam/1.jpg'),
-#						array($L_CAM_2,'seccam/1.jpg'),
-#						array($L_CAM_3,'seccam/1.jpg')
+#						array($L_CAM_1,'http://192.168.10.200:8081/1/stream'),
+#						array($L_CAM_2,'http://192.168.10.200:8081/2/stream'),
+#						array($L_CAM_3,'http://192.168.10.200:8081/3/stream')
 #					);
+$NVR_LIVE_STREAM=array(
+						array($L_CAM_1,'seccam/1.jpg'),
+						array($L_CAM_2,'seccam/1.jpg'),
+						array($L_CAM_2,'seccam/1.jpg'),
+						array($L_CAM_2,'seccam/1.jpg'),
+						array($L_CAM_3,'seccam/1.jpg')
+					);
 
 ?>

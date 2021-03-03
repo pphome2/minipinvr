@@ -44,14 +44,17 @@ function liveview(){
 		echo("</div>");
 		if ($y==3) {
 			$y=0;
-			echo("<div class=spaceline></div>");
 			echo("</div>");
+			echo("<div class=spaceline></div>");
 		}else{
-		  echo("</div>");
+			echo("</div>");
 		}
 		echo("</div>");
-	} ?>
-	<div class=spaceline></div>
+	}
+	if ($y<>0){
+		echo("</div>");
+	}
+	?>
 
 <?php
 

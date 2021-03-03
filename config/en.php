@@ -42,10 +42,57 @@ $L_PRIVACY_TEXT=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
 
 # local app zone
 
-$L_MENU1="List";
+$L_MENU_SERVICES="Services";
+$L_MENU_STORE="File depo";
+$L_MENU_TODAY="Today";
+$L_MENU_LIVE="Liveview";
 
-$L_MENU2="AdminList";
+$L_APPNAME="NVR";
 
-
+$L_BACKPAGE="Back";
+$L_ERROR_VIDEO="The browser does not support video playback.";
+$L_TABLE=array("Name","File","Video");
+$L_DOWNLOAD_TEXT="Download";
+$L_HEAD_TEXT="Stored video";
+$L_PLAYER="Play";
+$L_DOWNLOAD="Download";
+$L_NOFILE="File not available.";
+$L_FILES="Stored files";
+$L_DAYS=array("Today","-1 day","-2 day","-3 day");
+$L_SERVICES="Services";
+$L_DELETE="Delete";
+$L_FILENAME="File name";
+$L_DEL_CONF="Really want to delete the stored file?";
+$L_MOTION_HEAD="Recording status";
+$L_MOTION_RUN="Recorder program is running.";
+$L_MOTION_NORUN="Recorder program is stopped.";
+$L_MOTION_START="Stop recording";
+$L_MOTION_STOP="Start recording";
+$L_MOTION_INFO="Recording is performed by a system service.
+				It takes a few minutes to shut down or start up
+				instructions take effect. Check back in a few minutes
+				whether the recording program is running. (Appearance of new recorded files.)";
+$L_DELETE_INFO="Delete stored files";
+$L_DELETE_OLD="Delete previous days";
+$L_DELETE_TODAY="Delete today";
+$L_DELETE_OK="Files deleted.";
+$L_FILTER="Filter";
+$L_ERROR="Error";
+$L_STORE="File store";
+$L_STORE_COPYTO="To the file store";
+$L_STORE_COPY="Copyed to file store";
+$L_STORE_FILE_EXISTS="File is exists is stored files";
+$L_TIME_CONFIG="Timer";
+$L_TIME_SAVE="Save";
+$L_TIME_DAYS=array("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday");
+$L_TIME_TABLE=array("Day","Start","Stop","Night");
+$L_TIME_SAVED="Timer settings is stored.";
+$L_TIME_INFO="Set the day and night mode. Recording is started and stopped by a system process,
+				which checks the settings every few minutes. The settings are a couple
+				minutes come into effect. <br> <br> (Night: 21: 00-06: 00)";
+$L_LIVE_VIEW="Live view";
+$L_CAM_1="Living room";
+$L_CAM_2="Kitchen";
+$L_CAM_3="Bedroom";
 
 ?>

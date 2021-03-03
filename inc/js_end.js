@@ -1,5 +1,6 @@
 <script>
 
+// kijelentkezés automatikusan
 <?php
 if ($MA_LOGGEDIN){
 	if ($MA_ENABLE_COOKIES){
@@ -15,6 +16,7 @@ if ($MA_LOGGEDIN){
 ?>
 
 
+// táblázat szűrése
 function tfilter(inname) {
 	var input, sfilter, table, tr, td, i;
 	input = document.getElementById(inname);
@@ -33,12 +35,15 @@ function tfilter(inname) {
 	}
 }
 
-
+// élőkép
 function hidethis(th){
 	th.style.display="none";
 	document.getElementById("id_view").style.display="none";
+	document.getElementById("id_img").src="";
+	document.getElementById("id_name").innerHTML="";
 }
 
+// élőkép
 function imgview(imgsrc,imgname){
 	document.getElementById("id_view").style.display="block";
 	document.getElementById("id_img").src=imgsrc;
