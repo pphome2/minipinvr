@@ -10,16 +10,18 @@
 
 
 function liveview(){
-	global $L_LIVE_VIEW,$NVR_LIVE_STREAM;
+	global $L_LIVE_VIEW,$NVR_LIVE_STREAM,$NVR_LIVE_IMAGE_SIZE;
 
 ?>
 
 	<h3 class='center'><?php echo($L_LIVE_VIEW); ?></h3>
 	<div class="center" id="id_view" style="display:none;" onclick="hidethis(this);">
 		<div class=spaceline></div>
-		<div class="row border">
-		<img class="" id="id_img" src="seccam/1.jpg"><br>
-		<div class="" id="id_name">Nappali</div>
+		<div class="row">
+		<div class="border marginauto" style="width:<?php echo($NVR_LIVE_IMAGE_SIZE);?>;">
+		<img class="" id="id_img" style="" src="">
+		<div class="" id="id_name"></div>
+		</div>
 		</div>
 		<div class=spaceline></div>
 	</div>

@@ -164,4 +164,6 @@ $NVR_LIVE_STREAM=array(
 						array($L_CAM_3,'seccam/1.jpg')
 					);
 
+$NVR_LIVE_IMAGE_SIZE="80%";
+
 ?>
