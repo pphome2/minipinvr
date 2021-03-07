@@ -2,6 +2,7 @@
 
 Raspberry Pi NVR app.
 Linux NVR app.
+Fejlesztői os: Debian Linux
 
 A program Raspberry Pi-hez készült, de bármely Linux-on működik.
 
