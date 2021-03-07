@@ -93,7 +93,7 @@ $L_TIME_SAVED="Az időadatok mentése megtörtént.";
 $L_TIME_INFO="A napközbeni és éjszakai bekapcsolt üzemmód beállítása.
 				A rögzítés indítását és leállítását egy rendszerfolyamat végzi,
 				 ami pár percenként ellenőrzi a beállításokat. A beállítások pár
-				 perc utá lépnek életbe. <br><br> (Éjszaka: 21:00-06:00)";
+				 perc utá lépnek életbe. <br><br> (Éjszaka: $NVR_NIGHT_START-$NVR_NIGHT_STOP)";
 $L_LIVE_VIEW="Élőkép";
 $L_CAM_1="Nappali";
 $L_CAM_2="Konyha";

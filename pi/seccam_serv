@@ -12,7 +12,7 @@ process=`pgrep motion`
 #process="test"
 
 d=`pwd`
-cd /home/video/SecCam
+#cd /home/video/SecCam
 
 date
 
