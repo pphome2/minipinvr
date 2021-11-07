@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# kamera 3 - beállítás leállításhoz
+
+if [ ! -f /etc/motion/cam3.conf ]; then
+    d=`date`
+    echo $d - Kamera 3 felvétel leállítás. >> /var/log/motion/cam.log
+    mv /etc/motion/camera3.conf /etc/motion/cam3.conf 2>>/dev/null
+fi
+
+#

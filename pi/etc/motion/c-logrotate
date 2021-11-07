@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# kamera log váltása
+d=`date`
+echo $d - Log váltás. >> /var/log/motion/cam.log
+
+
+rm /var/log/motion/cam.3 2>>/dev/null
+mv /var/log/motion/cam.2 /var/log/motion/cam.3 2>>/dev/null
+mv /var/log/motion/cam.1 /var/log/motion/cam.2 2>>/dev/null
+mv /var/log/motion/cam.log /var/log/motion/cam.1 2>>/dev/null
+
+touch /var/log/motion/cam.log
+
+#
