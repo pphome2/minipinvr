@@ -32,8 +32,8 @@ $MA_ADMINFILE="start.php";
 $MA_PRIVACY="privacy.php";
 $MA_PRINTFILE="print.php";
 $MA_CSS=array(
-			"$MA_INCLUDE_DIR/sitew.css",
-			"$MA_INCLUDE_DIR/siteb.css"
+			"$MA_INCLUDE_DIR/siteb.css",
+			"$MA_INCLUDE_DIR/sitew.css"
 			);
 $MA_CSSPRINT="$MA_INCLUDE_DIR/sitepr.css";
 $MA_JS_BEGIN="$MA_INCLUDE_DIR/js_begin.js";
@@ -125,7 +125,6 @@ $MA_MENU=array(
 #				array($L_MENU2,"list.php")
 #			);
 
-
 # program parameters
 $NVR_FILEEXT=array('mp4','jpg');
 $NVR_SUPPORT_VIDEO=array('mp4');
@@ -134,7 +133,7 @@ $NVR_DIR_DAYS=array('0','1','2','3');
 # directories, files
 $NVR_DIR='./seccam';
 $NVR_RUN_FILE="nvr.run";
-$NVR_TIME_FILE="time.run";
+$NVR_TIME_FILE="nvr.day.";
 $NVR_STORE_DIR="TT";
 
 # page parameter
@@ -150,7 +149,7 @@ $NVR_STORE_TAG="t";
 $NVR_WIDTH="65%";
 $NVR_HEIGHT="65%";
 
-# live cam stream (from motion)
+# live cam stream (from camera)
 #$NVR_LIVE_STREAM=array(
 #						array($L_CAM_1,'http://192.168.10.200:8081/1/stream'),
 #						array($L_CAM_2,'http://192.168.10.200:8081/2/stream'),
@@ -159,9 +158,9 @@ $NVR_HEIGHT="65%";
 $NVR_LIVE_STREAM=array(
 						array($L_CAM_1,'seccam/1.jpg'),
 						array($L_CAM_2,'seccam/1.jpg'),
-						array($L_CAM_2,'seccam/1.jpg'),
-						array($L_CAM_2,'seccam/1.jpg'),
-						array($L_CAM_3,'seccam/1.jpg')
+						array($L_CAM_3,'seccam/1.jpg'),
+						array($L_CAM_4,'seccam/1.jpg'),
+						array($L_CAM_5,'seccam/1.jpg')
 					);
 
 $NVR_LIVE_IMAGE_SIZE="80%";

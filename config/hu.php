@@ -69,12 +69,15 @@ $L_DEL_CONF="Valóban törölni akarja a tárolt fájlt?";
 $L_MOTION_HEAD="A rögzítés állapota";
 $L_MOTION_RUN="A rögzítő program fut.";
 $L_MOTION_NORUN="A rögzítő program nem fut.";
-$L_MOTION_START="A rögzítés leállítása";
-$L_MOTION_STOP="A rögzítés indítása";
+$L_MOTION_START="A rögzítés indítása";
+$L_MOTION_STOP="A rögzítés leállítása";
 $L_MOTION_INFO="A rögzítést egy rendszer szolgáltatás végzi. 
 				Pár perc szükséges, hogy a leállítási vagy indítási 
 				utasítás érvénybe lépjen. Pár perc múlva ellenőrizze 
-				fut-e a rögzítő program. (Új rögzített fjlok megjelenése.)";
+				fut-e a rögzítő program. (Új rögzített fájlok megjelenése.)";
+$L_MOTION_ERROR_FILE="A rögzítés beállító fájl nem található";
+$L_CAMERA_START="Kamera bekapcsolása";
+$L_CAMERA_STOP="Kamera kikapcsolása";
 $L_DELETE_INFO="Rögzített fájlok törlése";
 $L_DELETE_OLD="Előző napok törlése";
 $L_DELETE_TODAY="Mai nap törlése";
@@ -93,7 +96,7 @@ $L_TIME_SAVED="Az időadatok mentése megtörtént.";
 $L_TIME_INFO="A napközbeni és éjszakai bekapcsolt üzemmód beállítása.
 				A rögzítés indítását és leállítását egy rendszerfolyamat végzi,
 				 ami pár percenként ellenőrzi a beállításokat. A beállítások pár
-				 perc utá lépnek életbe. <br><br> (Éjszaka: $NVR_NIGHT_START-$NVR_NIGHT_STOP)";
+				 perc után lépnek életbe.";
 $L_LIVE_VIEW="Élőkép";
 $L_CAM_1="Nappali";
 $L_CAM_2="Konyha";

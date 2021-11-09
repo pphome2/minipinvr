@@ -66,12 +66,15 @@ $L_DEL_CONF="Really want to delete the stored file?";
 $L_MOTION_HEAD="Recording status";
 $L_MOTION_RUN="Recorder program is running.";
 $L_MOTION_NORUN="Recorder program is stopped.";
-$L_MOTION_START="Stop recording";
-$L_MOTION_STOP="Start recording";
+$L_MOTION_START="Start recording";
+$L_MOTION_STOP="Stop recording";
 $L_MOTION_INFO="Recording is performed by a system service.
 				It takes a few minutes to shut down or start up
 				instructions take effect. Check back in a few minutes
 				whether the recording program is running. (Appearance of new recorded files.)";
+$L_MOTION_ERROR_FILE="Config file not found.";
+$L_CAMERA_START="Camera start";
+$L_CAMERA_STOP="Camera stop";
 $L_DELETE_INFO="Delete stored files";
 $L_DELETE_OLD="Delete previous days";
 $L_DELETE_TODAY="Delete today";

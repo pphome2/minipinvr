@@ -1,6 +1,6 @@
 # Mini-pi-NVR
 
-Raspberry Pi NVR app.
+Raspberry Pi NVR app. (OS: Debian, HW: Rpi 3b+)
 Linux NVR app.
 Fejlesztői os: Debian Linux
 

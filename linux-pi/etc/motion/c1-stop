@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# kamera 1 - beállítás leállításhoz
+
+if [ ! -f /etc/motion/cam1.conf ]; then
+    d=`date`
+    echo $d - Kamera 1 felvétel leállítás. >> /var/log/motion/cam.log
+    mv /etc/motion/camera1.conf /etc/motion/cam1.conf 2>>/dev/null
+fi
+
+#

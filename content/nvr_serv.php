@@ -11,11 +11,12 @@
 
 function services(){
 	global $NVR_DAY_TAG,$NVR_MAIN_TAG,$NVR_SERV_TAG,$NVR_RUN_FILE,$NVR_DIR,$NVR_TIME_FILE,
+			$NVR_LIVE_STREAM,
 			$L_BACKPAGE,$L_NO_AVAILABLE,$L_DELETE_OK,$L_MOTION_STOP,$L_MOTION_START,
 			$L_MOTION_HEAD,$L_MOTION_RUN,$L_MOTION_NORUN,$L_DELETE_OK,$L_DELETE_INFO,
 			$L_MOTION_INFO,$L_DELETE_OLD,$L_DELETE_TODAY,$MA_MENU_FIELD,$MA_MENU,
 			$L_ERROR,$L_TIME_SAVED,$L_TIME_CONFIG,$L_TIME_INFO,$L_TIME_TABLE,$L_TIME_SAVE,
-			$L_TIME_DAYS;
+			$L_TIME_DAYS,$L_MOTION_ERROR_FILE,$L_CAMERA_START,$L_CAMERA_STOP;
 
 	$day="";
 	if (!empty($_GET[$NVR_DAY_TAG])) {
@@ -28,19 +29,6 @@ function services(){
 	if (!empty($_GET[$NVR_SERV_TAG])){
 		$f=$_GET[$NVR_SERV_TAG];
 		switch ($f){
-			case "1": 		# indító fájl a service-nek
-				$fi=$NVR_DIR."/".$NVR_RUN_FILE;
-				if (file_exists($fi)){
-					if (!unlink($fi)){
-						echo("<div class=errorbar>$L_ERROR: $fi</div>");
-					}
-				}else{
-					$str="1";
-					if (!file_put_contents($fi,$str)){
-						echo("<div class=errorbar>$L_ERROR: $fi</div>");
-					}
-				}
-				break;
 			case "2":		# mai rögzítés törlése
 				if (file_del(false,$NVR_DIR)){
 						echo("<div class=infobar>$L_DELETE_OK</div>");
@@ -55,40 +43,112 @@ function services(){
 				break;
 		}
 	}
-	if (file_exists($NVR_DIR."/".$NVR_RUN_FILE)){
-		$buttontext="$L_MOTION_START";
-		$info=$L_MOTION_RUN;
+
+	# rögzítés és kamerák állapota (ki- és bekapcsolás)
+	#
+	# CAM_DETECT=0
+	# CAM_ENABLE=("0" "2" "0")
+	#
+	$camstart=array();
+	$camenable="0";
+	$camrunsave=false;
+	$cdb=count($NVR_LIVE_STREAM);
+	$rf=$NVR_DIR."/".$NVR_RUN_FILE;
+	if (file_exists($rf)){
+		$lines=file($rf);
+		for($k=0;$k<count($lines);$k++){
+			$ol=explode("=",$lines[$k]);
+			if ($ol[0]==="CAM_DETECT"){
+				if ($ol[1]==0){
+					$camenable="0";
+				}else{
+					$camenable="1";
+				}
+			}
+			if ($ol[0]==="CAM_ENABLE"){
+				$ol[1]=trim($ol[1],"()");
+				$olc=explode(" ",$ol[1]);
+				for ($i=0;$i<$cdb;$i++){
+					if (strpos($olc[$i],"0")>0){
+						$camxenable[$i]=false;
+					}else{
+						$camxenable[$i]=true;
+					}
+				}
+			}
+		}
 	}else{
-		$buttontext="$L_MOTION_STOP";
-		$info=$L_MOTION_NORUN;
+		$camrunsave=true;
+		for ($i=0;$i<$cdb;$i++){
+			$camxenable[$i]=true;
+			$camstart[$i]=$L_CAMERA_STOP;
+		}
+		$buttontext="$L_MOTION_START";
+		$info=$L_MOTION_ERROR_FILE;
 	}
 	$menu=$MA_MENU[0][1];
 
-	$of=$NVR_DIR."/".$NVR_TIME_FILE;
-	if (isset($_POST["submittime"])){
-		$db=count($L_TIME_DAYS);
-		$out="";
-		for ($i=0;$i<$db;$i++){
-			$out=$out.$_POST["nap1$i"]."-";
-			$out=$out.$_POST["nap2$i"]."-";
-			if (isset($_POST["ej$i"])){
-				$out=$out."X"."\n";
-			}else{
-				$out=$out."I"."\n";
-			}
-		}
-		if ($out<>""){
-			$of=$NVR_DIR."/".$NVR_TIME_FILE;
-			if (file_put_contents($of,$out)){
-				echo("<div class=infobar>$L_TIME_SAVED</div>");
-			}else{
-				echo("<div class=errorbar>$L_ERROR</div>");
-			}
+	# mentés előkészítés
+	$out=array("#\n");
+	$out[1]="CAM_DETECT=";
+	if (isset($_POST["startstopall"])){
+		$camrunsave=true;
+		if ($buttontext==$L_MOTION_START){
+			$out[1]=$out[1]."1";
 		}else{
-			echo("<div class=errorbar>$L_ERROR</div>");
+			$out[1]=$out[1]."0";
+		}
+	}else{
+		$out[1]=$out[1].$camenable;
+	}
+	$out[1]=$out[1]."\n";
+	for ($i=0;$i<$cdb;$i++){
+		if (isset($_POST["startstop$i"])){
+			$camxenable[$i]=!$camxenable[$i];
+			$camrunsave=true;
 		}
 	}
-		$timedata=array();
+	$out[2]="";
+	for ($i=0;$i<$cdb;$i++){
+		if ($camxenable[$i]){
+			$y=$i+1;
+			$out[2]=$out[2].'"'.$y.'" ';
+		}else{
+			$out[2]=$out[2].'"'."0".'" ';
+		}
+	}
+	$out[2]="CAM_ENABLE=(".$out[2].")\n";
+	$out[3]="#\n";
+	#echo($out[1]);
+	#echo($out[2]);
+
+	# mentés
+	if ($camrunsave){
+		file_put_contents($rf,$out);
+		# változások átvezetése a rendszerbe
+		for ($i=0;$i<$cdb;$i++){
+			if ($camxenable[$i]){
+				$camstart[$i]=$L_CAMERA_STOP;
+			}else{
+				$camstart[$i]=$L_CAMERA_START;
+			}
+		}
+		if ($camenable==0){
+			$buttontext="$L_MOTION_START";
+			$info=$L_MOTION_NORUN;
+		}else{
+			$buttontext="$L_MOTION_STOP";
+			$info=$L_MOTION_RUN;
+		}
+	}
+
+	# időadatok
+	$of=$NVR_DIR."/".$NVR_TIME_FILE;
+	if (isset($_POST["submittime"])){
+	  echo("4444");
+	}
+
+	$timedata=array();
 	if (file_exists($of)){
 		$lines=file($of);
 		for($i=0;$i<count($lines);$i++){
@@ -117,9 +177,20 @@ function services(){
 	<div class=center50>
 			<center><p><?php echo($info); ?></p>
 			<p><?php echo($L_MOTION_INFO); ?></p></center>
-			<a href=?<?php echo("$MA_MENU_FIELD=$menu&$NVR_SERV_TAG=1"); ?> >
-				<input type=submit id=submitar name=submitar value='<?php echo($buttontext) ?>' >
-			</a>
+			<form class=formfull id="startstop" method=post>
+				<table class=table id='camtable'>
+				<?php
+				for ($i=0;$i<$cdb;$i++){
+					$y=$i+1;
+					echo("Kamera $y: ");
+					echo("<input type=submit id=startstop$i name=startstop$i value='$camstart[$i]' >");
+				}
+				?>
+				</table>
+				<div class=spaceline></div>
+				<div class=spaceline></div>
+				<input type=submit id=startstopall name=startstopall value='<?php echo($buttontext) ?>' >
+			</form>
 
 		<div class=spaceline></div>
 		<div class=spaceline></div>

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# NVR napi mantés a mozgás video fájlokról
+# cron.d: 0 0 * * *     root   /usr/local/bin/seccam
+
+d=`pwd`
+
+cd /home/video/SecCam
+
+rm 3/*.mp4 2>>/dev/null >>/dev/null
+rm 3/*.jpg 2>>/dev/null >>/dev/null
+rmdir 3 2>>/dev/null >>/dev/null
+
+mv 2 3 2>>/dev/null >>/dev/null
+mv 1 2 2>>/dev/null >>/dev/null
+
+mkdir 1 2>>/dev/null >>/dev/null
+chmod 777 1
+
+mv *.mp4 1 2>>/dev/null >>/dev/null
+mv *.jpg 1 2>>/dev/null >>/dev/null
+
+chmod 666 1/*.mp4 2>>/dev/null >>/dev/null
+chmod 666 1/*.jpg 2>>/dev/null >>/dev/null
+
+cd $d
