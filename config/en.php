@@ -88,7 +88,7 @@ $L_STORE_FILE_EXISTS="File is exists is stored files";
 $L_TIME_CONFIG="Timer";
 $L_TIME_SAVE="Save";
 $L_TIME_DAYS=array("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday");
-$L_TIME_TABLE=array("Day","Start","Stop","Night");
+$L_TIME_TABLE=array("Day","Start","Stop","Night start","Night stop");
 $L_TIME_SAVED="Timer settings is stored.";
 $L_TIME_INFO="Set the day and night mode. Recording is started and stopped by a system process,
 				which checks the settings every few minutes. The settings are a couple

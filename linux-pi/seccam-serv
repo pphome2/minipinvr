@@ -5,7 +5,7 @@
 #
 
 # nap sorszáma
-DNOW=$(date +%u)
+DNOW=$(date +%w)
 
 # alapadatok
 FILEDAY="./nvr.day.$DNOW"
@@ -27,7 +27,7 @@ if [ -f $FILEDAY ]; then
 	# fi
 	. $FILEDAY
 	T=$(date +%H%M)
-	if [ "$T" -gt "$CAM_NIGHT_START" ] && [ "$T" -lt "$CAM_NIGHT_STOP" ]; then
+	if [ "$T" -gt "$CAM_NIGHT_STOP" ] && [ "$T" -lt "$CAM_NIGHT_START" ]; then
 		START="1"
 	fi
 	if [ "$T" -gt "$CAM_DAY_START" ] && [ "$T" -lt "$CAM_DAY_STOP" ]; then
@@ -44,30 +44,31 @@ else
 	echo $D - kamerák intervallumon kívül
 fi
 
+# indítás - leállítás
 if [ -f $FILECAMSTAT ]; then
 	. $FILECAMSTAT
 	if [ "$CAM_DETECT" = "0" ]; then
-		START="0"
+		echo $D - kamerák leállítása
+		${CAM_ALLSTOP} 2>>/dev/null
 	else
-		echo $D - kamerák engedélyezve
+		#echo $D - kamerák engedélyezve
+		if [ "$START" = "1" ]; then
+			echo $D - kamerák indítása
+			for i in ${!CAM_ENABLE[@]}; do
+				if [ ! ${CAM_ENABLE[$i]} -eq "0" ]; then
+					#echo start $i
+					${CAM_START[$i]} 2>>/dev/null
+				else
+					#echo stop $i
+					${CAM_STOP[$i]} 2>>/dev/null
+				fi
+			done
+			${CAM_RESTART} 2>>/dev/null
+		else
+			echo $D - kamerák leállítása
+			${CAM_ALLSTOP} 2>>/dev/null
+		fi
 	fi
 fi
-
-if [ "$START" = "1" ]; then
-	echo $D - kamerák indítása
-else
-	echo $D - kamerák leállítása
-	for i in ${!CAM_ENABLE[@]}; do
-		if [ ! ${CAM_ENABLE[$i]} -eq "0" ]; then
-			#echo start $i
-			${CAM_START[$i]} 2>>/dev/null
-		else
-			#echo stop $i
-			${CAM_STOP[$i]} 2>>/dev/null
-		fi
-	done
-	${CAM_RESTART} 2>>/dev/null
-fi
-
 
 #

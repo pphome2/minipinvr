@@ -125,50 +125,63 @@ function services(){
 	# mentés
 	if ($camrunsave){
 		file_put_contents($rf,$out);
-		# változások átvezetése a rendszerbe
-		for ($i=0;$i<$cdb;$i++){
-			if ($camxenable[$i]){
-				$camstart[$i]=$L_CAMERA_STOP;
-			}else{
-				$camstart[$i]=$L_CAMERA_START;
-			}
-		}
-		if ($camenable==0){
-			$buttontext="$L_MOTION_START";
-			$info=$L_MOTION_NORUN;
+	}
+	# változások átvezetése a rendszerbe
+	for ($i=0;$i<$cdb;$i++){
+		if ($camxenable[$i]){
+			$camstart[$i]=$L_CAMERA_STOP;
 		}else{
-			$buttontext="$L_MOTION_STOP";
-			$info=$L_MOTION_RUN;
+			$camstart[$i]=$L_CAMERA_START;
 		}
 	}
+	if ($camenable==0){
+		$buttontext="$L_MOTION_START";
+		$info=$L_MOTION_NORUN;
+	}else{
+		$buttontext="$L_MOTION_STOP";
+		$info=$L_MOTION_RUN;
+	}
+
 
 	# időadatok
+	#
+	# CAM_DAY_START=
+	# CAM_DAY_STOP=#
+	# CAM_NIGHT_START=
+	# CAM_NIGHT_STOP=
+	#
+	$ddb=count($L_TIME_DAYS);
+	$timedata=array();
 	$of=$NVR_DIR."/".$NVR_TIME_FILE;
 	if (isset($_POST["submittime"])){
-	  echo("4444");
-	}
-
-	$timedata=array();
-	if (file_exists($of)){
-		$lines=file($of);
-		for($i=0;$i<count($lines);$i++){
-			$ol=explode("-",$lines[$i]);
-			$timedata[$i][0]=$ol[0];
-			$timedata[$i][1]=$ol[1];
-			if (trim($ol[2])=="X"){
-				$timedata[$i][2]="checked";
-			}else{
-				$timedata[$i][2]="";
-			}
+		for ($i=1;$i<=$ddb;$i++){
+			$out[0]="#\n";
+			$timedata[$i][0]=$_POST["nap1$i"];
+			$out[1]="CAM_DAY_START=".$timedata[$i][0]."\n";
+			$timedata[$i][1]=$_POST["nap2$i"];
+			$out[2]="CAM_DAY_STOP=".$timedata[$i][1]."\n";
+			$timedata[$i][2]=$_POST["ej1$i"];
+			$out[3]="CAM_NIGHT_START=".$timedata[$i][2]."\n";
+			$timedata[$i][3]=$_POST["ej2$i"];
+			$out[4]="CAM_NIGHT_STOP=".$timedata[$i][3]."\n";
+			$out[5]="#\n";
+			$rf=$of.$i;
+			file_put_contents($rf,$out);
 		}
 	}else{
-		for($i=0;$i<7;$i++){
-			$timedata[$i][0]="06:00";
-			$timedata[$i][1]="06:00";
-			$timedata[$i][2]="";
+		for ($i=1;$i<=$ddb;$i++){
+			$rf=$of.$i;
+			$lines=file($rf);
+			$ol=explode("=",$lines[1]);
+			$timedata[$i][0]=trim($ol[1]);
+			$ol=explode("=",$lines[2]);
+			$timedata[$i][1]=trim($ol[1]);
+			$ol=explode("=",$lines[3]);
+			$timedata[$i][2]=trim($ol[1]);
+			$ol=explode("=",$lines[4]);
+			$timedata[$i][3]=trim($ol[1]);
 		}
 	}
-
 
 ?>
 
@@ -225,23 +238,26 @@ function services(){
 					<th class='df_th2'><?php echo($L_TIME_TABLE[1]); ?></th>
 					<th class='df_th2'><?php echo($L_TIME_TABLE[2]); ?></th>
 					<th class='df_th2'><?php echo($L_TIME_TABLE[3]); ?></th>
+					<th class='df_th2'><?php echo($L_TIME_TABLE[4]); ?></th>
 					</tr>
 					<?php
-					$db=count($L_TIME_DAYS);
-					for ($i=0;$i<$db;$i++){
+					for ($i=1;$i<=$ddb;$i++){
 						?>
 						<tr class="df_tr">
 						<td class="df_td">
-							<?php echo($L_TIME_DAYS[$i]); ?>
+							<?php $k=$i-1; echo($L_TIME_DAYS[$k]); ?>
 						</td>
-						<td class="df_td">
+						<td class="df_td2">
 							<input type=time id='nap1<?php echo($i); ?>' name='nap1<?php echo($i); ?>' min="00:00" max="23:50" step="60" value="<?php echo($timedata[$i][0]); ?>" >
 						</td>
-						<td class="df_td">
+						<td class="df_td2">
 							<input type=time id='nap2<?php echo($i); ?>' name='nap2<?php echo($i); ?>' min="00:00" max="23:50" step="60" value="<?php echo($timedata[$i][1]); ?>" >
 						</td>
-						<td class="df_td">
-							<input type=checkbox id='ej<?php echo($i); ?>' <?php echo($timedata[$i][2]); ?> name='ej<?php echo($i); ?>'  >
+						<td class="df_td2">
+							<input type=time id='ej1<?php echo($i); ?>' name='ej1<?php echo($i); ?>' min="00:00" max="23:50" step="60" value="<?php echo($timedata[$i][2]); ?>" >
+						</td>
+						<td class="df_td2">
+							<input type=time id='ej2<?php echo($i); ?>' name='ej2<?php echo($i); ?>' min="00:00" max="23:50" step="60" value="<?php echo($timedata[$i][3]); ?>" >
 						</td>
 						</tr>
 					<?php } ?>

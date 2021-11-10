@@ -91,7 +91,7 @@ $L_STORE_FILE_EXISTS="Fájl már a tárolóban";
 $L_TIME_CONFIG="Időzítő";
 $L_TIME_SAVE="Mentés";
 $L_TIME_DAYS=array("Hétfő","Kedd","Szerda","Csütörtök","Péntek","Szombat","Vasárnap");
-$L_TIME_TABLE=array("Nap","Bekapcsolás","Kikapcsolás","Éjszaka");
+$L_TIME_TABLE=array("Nap","Bekapcsolás","Kikapcsolás","Éjszaka be","Éjszaka ki");
 $L_TIME_SAVED="Az időadatok mentése megtörtént.";
 $L_TIME_INFO="A napközbeni és éjszakai bekapcsolt üzemmód beállítása.
 				A rögzítés indítását és leállítását egy rendszerfolyamat végzi,
