@@ -16,7 +16,8 @@ function services(){
 			$L_MOTION_HEAD,$L_MOTION_RUN,$L_MOTION_NORUN,$L_DELETE_OK,$L_DELETE_INFO,
 			$L_MOTION_INFO,$L_DELETE_OLD,$L_DELETE_TODAY,$MA_MENU_FIELD,$MA_MENU,
 			$L_ERROR,$L_TIME_SAVED,$L_TIME_CONFIG,$L_TIME_INFO,$L_TIME_TABLE,$L_TIME_SAVE,
-			$L_TIME_DAYS,$L_MOTION_ERROR_FILE,$L_CAMERA_START,$L_CAMERA_STOP;
+			$L_TIME_DAYS,$L_MOTION_ERROR_FILE,$L_CAMERA_START,$L_CAMERA_STOP,$L_CAM_NAME,
+			$L_CAMERA;
 
 	$day="";
 	if (!empty($_GET[$NVR_DAY_TAG])) {
@@ -195,8 +196,17 @@ function services(){
 				<?php
 				for ($i=0;$i<$cdb;$i++){
 					$y=$i+1;
-					echo("Kamera $y: ");
+					echo("<div class=row>");
+					echo("<div class=col3>");
+					echo("<p>$L_CAMERA $y</p>");
+					echo("</div>");
+					echo("<div class=col3>");
+					echo("<p>$L_CAM_NAME[$i]</p>");
+					echo("</div>");
+					echo("<div class=col3>");
 					echo("<input type=submit id=startstop$i name=startstop$i value='$camstart[$i]' >");
+					echo("</div>");
+					echo("</div>");
 				}
 				?>
 				</table>

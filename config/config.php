@@ -156,11 +156,11 @@ $NVR_HEIGHT="65%";
 #						array($L_CAM_3,'http://192.168.10.200:8081/3/stream')
 #					);
 $NVR_LIVE_STREAM=array(
-						array($L_CAM_1,'seccam/1.jpg'),
-						array($L_CAM_2,'seccam/1.jpg'),
-						array($L_CAM_3,'seccam/1.jpg'),
-						array($L_CAM_4,'seccam/1.jpg'),
-						array($L_CAM_5,'seccam/1.jpg')
+						array($L_CAM_NAME[0],'seccam/1.jpg'),
+						array($L_CAM_NAME[1],'seccam/1.jpg'),
+						array($L_CAM_NAME[2],'seccam/1.jpg'),
+						array($L_CAM_NAME[3],'seccam/1.jpg'),
+						array($L_CAM_NAME[4],'seccam/1.jpg')
 					);
 
 $NVR_LIVE_IMAGE_SIZE="80%";

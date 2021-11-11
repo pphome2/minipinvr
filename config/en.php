@@ -94,8 +94,7 @@ $L_TIME_INFO="Set the day and night mode. Recording is started and stopped by a 
 				which checks the settings every few minutes. The settings are a couple
 				minutes come into effect. <br> <br> (Night: $NVR_NIGHT_START-$NVR_NIGHT_STOP)";
 $L_LIVE_VIEW="Live view";
-$L_CAM_1="Living room";
-$L_CAM_2="Kitchen";
-$L_CAM_3="Bedroom";
+$L_CAM_NAME=array("Living room","Kitchen","Bedroom","Other1","Other2");
+$L_CAMERA="Kamera";
 
 ?>
