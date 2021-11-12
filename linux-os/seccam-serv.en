@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# NVR szerver oldal
+#
+# english language file
+#
+
+L_NEW="new cron file created"
+L_NOCHANGE="no change"
+L_CAMSTOP="stop all camera"
+L_CAMSET="set all camera"
+
+#

@@ -9,6 +9,7 @@
 DNOW=$(date +%w)
 
 # alapadatok
+LANGFILE="./seccam-serv.hu"
 FILEDAY="./nvr.day.$DNOW"
 FILECAMSTAT="./nvr.run"
 CAM_START=("/etc/motion/c1-start" "/etc/motion/c2-start" "/etc/motion/c3-start")
@@ -23,11 +24,21 @@ CRON_FILE="./seccam.cron"
 # változásfigyelés: másodperc
 CHANGEDETECTINT=300
 
+# nyelvi fájlok
+if [ -f $LANGFILE ]; then
+	. $LANGFILE
+else
+	L_NEW="új cron fájl elkészítése"
+	L_NOCHANGE="nincs változás"
+	L_CAMSTOP="kamerák leállítása"
+	L_CAMSET="kamerák beállítása"
+fi
+
 # dátum
 D=$(date)
 START="0"
 if [ -f $FILEDAY ]; then
-	 #if [ $(( $(date +%s) - $(date +%s -r $FILEDAY) )) -le $CHANGEDETECTINT ]; then
+	if [ $(( $(date +%s) - $(date +%s -r $FILEDAY) )) -le $CHANGEDETECTINT ]; then
 		. $FILEDAY
 		T=$(date +%H%M)
 		START="1"
@@ -46,34 +57,36 @@ if [ -f $FILEDAY ]; then
 		echo "$DSTARTM $DSTARTH * * * root $CAM_ALL_START" >>$CRON_FILE
 		echo "$DSTOPM $DSTOPH * * * root $CAM_ALL_STOP" >>$CRON_FILE
 		echo "#" >>$CRON_FILE
-	#fi
+	fi
 fi
 
 if [ "$START" = "1" ]; then
-	echo $D - új cron fájl elkészítése
+	echo "$D - $L_NEW"
 else
-	echo $D - nincs változás
+	echo "$D - $L_NOCHANGE"
 fi
 
 # indítás - leállítás
 if [ -f $FILECAMSTAT ]; then
-	. $FILECAMSTAT
-	if [ "$CAM_DETECT" = "0" ]; then
-		echo $D - kamerák leállítása
-		rm $CRON_FILE 2>>/dev/null
-		${CAM_ALLSTOP} 2>>/dev/null
-	else
-		for i in ${!CAM_ENABLE[@]}; do
-			if [ ! ${CAM_ENABLE[$i]} -eq "0" ]; then
-				#echo start $i
-				${CAM_START[$i]} 2>>/dev/null
-			else
-				#echo stop $i
-				${CAM_STOP[$i]} 2>>/dev/null
-			fi
-		done
-		${CAM_RESTART} 2>>/dev/null
-		echo $D - kamerák beállítása
+	if [ $(( $(date +%s) - $(date +%s -r $FILECAMSTAT) )) -le $CHANGEDETECTINT ]; then
+		. $FILECAMSTAT
+		if [ "$CAM_DETECT" = "0" ]; then
+			echo "$D - $L_CAMSTOP"
+			rm $CRON_FILE 2>>/dev/null
+			${CAM_ALLSTOP} 2>>/dev/null
+		else
+			for i in ${!CAM_ENABLE[@]}; do
+				if [ ! ${CAM_ENABLE[$i]} -eq "0" ]; then
+					#echo start $i
+					${CAM_START[$i]} 2>>/dev/null
+				else
+					#echo stop $i
+					${CAM_STOP[$i]} 2>>/dev/null
+				fi
+			done
+			${CAM_RESTART} 2>>/dev/null
+			echo "$D - $L_CAMSET"
+		fi
 	fi
 fi
 
