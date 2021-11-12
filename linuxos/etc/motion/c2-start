@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# kamera 2 - beállítás indításhoz
+
+if [ ! -f /etc/motion/camera2.conf ]; then
+    d=`date`
+    echo $d - Kamera 2 felvétel indítás. >> /var/log/motion/cam.log
+    mv /etc/motion/cam2.conf /etc/motion/camera2.conf 2>>/dev/null
+fi
+
+#

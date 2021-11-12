@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# motion: minden kamera felvétel leállítás
+d=`date`
+echo $d - Minden kamera leállítása. >> /var/log/motion/cam.log
+
+if [ ! -f /etc/motion/cam1.conf ]; then
+    /etc/motion/c1-stop
+fi
+
+if [ ! -f /etc/motion/cam2.conf ]; then
+    /etc/motion/c2-stop
+fi
+
+if [ ! -f /etc/motion/cam3.conf ]; then
+    /etc/motion/c3-stop
+fi
+
+#systemctl stop motion
+killall motion 2>>/dev/null
+
+#
