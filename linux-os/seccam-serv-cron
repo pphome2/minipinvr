@@ -42,20 +42,44 @@ if [ -f $FILEDAY ]; then
 		. $FILEDAY
 		T=$(date +%H%M)
 		START="1"
-		NSTARTH=$(date -d "$CAM_NIGHT_START" +'%H')
-		NSTARTM=$(date -d "$CAM_NIGHT_START" +'%M')
-		NSTOPH=$(date -d "$CAM_NIGHT_STOP" +'%H')
-		NSTOPM=$(date -d "$CAM_NIGHT_STOP" +'%M')
-		DSTARTH=$(date -d "$CAM_DAY_START" +'%H')
-		DSTARTM=$(date -d "$CAM_DAY_START" +'%M')
-		DSTOPH=$(date -d "$CAM_DAY_STOP" +'%H')
-		DSTOPM=$(date -d "$CAM_DAY_STOP" +'%M')
+		if [ "$CAM_NIGHT_START" != "" ]; then
+			NSTARTH=$(date -d "$CAM_NIGHT_START" +'%H')
+		fi
+		if [ "$CAM_NIGHT_START" != "" ]; then
+			NSTARTM=$(date -d "$CAM_NIGHT_START" +'%M')
+		fi
+		if [ "$CAM_NIGHT_STOP" != "" ]; then
+			NSTOPH=$(date -d "$CAM_NIGHT_STOP" +'%H')
+		fi
+		if [ "$CAM_NIGHT_STOP" != "" ]; then
+			NSTOPM=$(date -d "$CAM_NIGHT_STOP" +'%M')
+		fi
+		if [ "$CAM_DAY_START" != "" ]; then
+			DSTARTH=$(date -d "$CAM_DAY_START" +'%H')
+		fi
+		if [ "$CAM_DAY_START" != "" ]; then
+			DSTARTM=$(date -d "$CAM_DAY_START" +'%M')
+		fi
+		if [ "$CAM_DAY_STOP" != "" ]; then
+			DSTOPH=$(date -d "$CAM_DAY_STOP" +'%H')
+		fi
+		if [ "$CAM_DAY_STOP" != "" ]; then
+			DSTOPM=$(date -d "$CAM_DAY_STOP" +'%M')
+		fi
 		#echo $NSTARTH:$NSTARTM $NSTOPH:$NSTOPM $DSTARTH:$DSTARTM $DSTOPH:$DSTOPM
 		echo "#" >$CRON_FILE
-		echo "$NSTARTM $NSTARTH * * * root $CAM_ALL_START" >>$CRON_FILE
-		echo "$NSTOPM $NSTOPH * * * root $CAM_ALL_STOP" >>$CRON_FILE
-		echo "$DSTARTM $DSTARTH * * * root $CAM_ALL_START" >>$CRON_FILE
-		echo "$DSTOPM $DSTOPH * * * root $CAM_ALL_STOP" >>$CRON_FILE
+		if [ ! -z "$NSTARTM" ] && [ ! -z "$NSTARTH" ]; then
+			echo "$NSTARTM $NSTARTH * * * root $CAM_ALL_START" >>$CRON_FILE
+		fi
+		if [ ! -z "$NSTOPM" ] && [ ! -z "$NSTOPH" ]; then
+			echo "$NSTOPM $NSTOPH * * * root $CAM_ALL_STOP" >>$CRON_FILE
+		fi
+		if [ ! -z "$DSTARTM" ] && [ ! -z "$DSTARTH" ]; then
+			echo "$DSTARTM $DSTARTH * * * root $CAM_ALL_START" >>$CRON_FILE
+		fi
+		if [ ! -z "$DSTOPM" ] && [ ! -z "$DSTOPH" ]; then
+			echo "$DSTOPM $DSTOPH * * * root $CAM_ALL_STOP" >>$CRON_FILE
+		fi
 		echo "#" >>$CRON_FILE
 	fi
 fi
