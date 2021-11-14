@@ -9,5 +9,6 @@ L_NEW="új cron fájl elkészítése"
 L_NOCHANGE="nincs változás"
 L_CAMSTOP="kamerák leállítása"
 L_CAMSET="kamerák beállítása"
+L_CAMSTARTTIME="intervallumon belül"
 
 #

@@ -32,16 +32,18 @@ else
 	L_NOCHANGE="nincs változás"
 	L_CAMSTOP="kamerák leállítása"
 	L_CAMSET="kamerák beállítása"
+	L_CAMSTARTTIME="intervallumon belül"
 fi
 
 # dátum
 D=$(date)
 START="0"
+NEWCONFIG="0"
 if [ -f $FILEDAY ]; then
 	if [ $(( $(date +%s) - $(date +%s -r $FILEDAY) )) -le $CHANGEDETECTINT ]; then
+		NEWCONFIH="1"
 		. $FILEDAY
 		T=$(date +%H%M)
-		START="1"
 		if [ "$CAM_NIGHT_START" != "" ]; then
 			NSTARTH=$(date -d "$CAM_NIGHT_START" +'%H')
 		fi
@@ -81,13 +83,33 @@ if [ -f $FILEDAY ]; then
 			echo "$DSTOPM $DSTOPH * * * root $CAM_ALL_STOP" >>$CRON_FILE
 		fi
 		echo "#" >>$CRON_FILE
+		# induljon-e
+		if [ "$T" -gt "$CAM_DAY_START" ] && [ "$T" -lt "$CAM_DAY_STOP"  ]; then
+			START="1"
+		fi
+		if [ "$CAM_NIGHT_START" -lt "$CAM_NIGHT_STOP" ]; then
+			if [ "$T" -gt "$CAM_NIGHT_START" ] && [ "$T" -lt "$CAM_NIGHT_STOP"  ]; then
+				START="1"
+			fi
+		else
+			if [ "$T" -gt "$CAM_NIGHT_START" ] && [ "$T" -lt "2359"  ]; then
+				START="1"
+			fi
+			if [ "$T" -gt "0000" ] && [ "$T" -lt "$CAM_NIGHT_STOP"  ]; then
+				START="1"
+			fi
+		fi
 	fi
 fi
 
-if [ "$START" = "1" ]; then
+if [ "$NEWCONFIG" = "1" ]; then
 	echo "$D - $L_NEW"
 else
 	echo "$D - $L_NOCHANGE"
+fi
+
+if [ "$START" = "1" ]; then
+	echo "$D - $L_CAMSTARTTIME"
 fi
 
 # indítás - leállítás
