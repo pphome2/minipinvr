@@ -5,11 +5,12 @@
 # cron fájl létrehozás
 #
 
-# nap sorszáma
+# nap sorszáma, indító könyvtár
 DNOW=$(date +%w)
+SDIR=`pwd`
 
 # alapadatok
-LANGFILE="./seccam-serv.hu"
+LANGFILE="$SDIR/seccam-serv.hu"
 FILEDAY="./nvr.day.$DNOW"
 FILECAMSTAT="./nvr.run"
 CAM_START=("/etc/motion/c1-start" "/etc/motion/c2-start" "/etc/motion/c3-start")
@@ -25,8 +26,8 @@ CRON_FILE="./seccam.cron"
 CHANGEDETECTINT=300
 
 # nyelvi fájlok
-if [ -f $LANGFILE ]; then
-	. $LANGFILE
+if [ -f "$SDIR/$LANGFILE" ]; then
+	. "$SDIR/$LANGFILE"
 else
 	L_NEW="új cron fájl elkészítése"
 	L_NOCHANGE="nincs változás"
