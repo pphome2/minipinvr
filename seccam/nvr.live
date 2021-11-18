@@ -1,0 +1,4 @@
+#
+CAM_DETECT=0
+CAM_ENABLE=("1" "2" "3" "0" "5" )
+#

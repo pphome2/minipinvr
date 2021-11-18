@@ -95,6 +95,8 @@ $L_TIME_INFO="Set the day and night mode. Recording is started and stopped by a 
 				minutes come into effect. <br> <br> (Night: $NVR_NIGHT_START-$NVR_NIGHT_STOP)";
 $L_LIVE_VIEW="Live view";
 $L_CAM_NAME=array("Living room","Kitchen","Bedroom","Other1","Other2");
-$L_CAMERA="Kamera";
+$L_CAMERA="Camera";
+$L_NOLIVESTREAM="Livestream available only during recording.";
+$L_LIVESTREAM_NOTICE="Only live images available from enabled cameras.";
 
 ?>

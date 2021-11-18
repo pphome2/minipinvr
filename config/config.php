@@ -134,6 +134,7 @@ $NVR_DIR_DAYS=array('0','1','2','3');
 $NVR_DIR='./seccam';
 $NVR_RUN_FILE="nvr.run";
 $NVR_TIME_FILE="nvr.day.";
+$NVR_LIVESTREAM_FILE="nvr.live";
 $NVR_STORE_DIR="TT";
 
 # page parameter

@@ -24,3 +24,5 @@ chmod 666 1/*.mp4 2>>/dev/null >>/dev/null
 chmod 666 1/*.jpg 2>>/dev/null >>/dev/null
 
 cd $d
+
+#

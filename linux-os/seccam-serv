@@ -5,25 +5,26 @@
 # cron fájl létrehozás
 #
 
-# nap sorszáma, indító könyvtár
-DNOW=$(date +%w)
-SDIR=`pwd`
+# változásfigyelés: másodperc
+CHANGEDETECTINT=300
 
 # alapadatok
-LANGFILE="$SDIR/seccam-serv.hu"
-FILEDAY="./nvr.day.$DNOW"
+#CRON_FILE="/etc/cron.d/seccam"
+#FILEDAY="/home/video/SecCam/nvr.day.$DNOW"
+#FILECAMSTAT="/home/video/SecCam/nvr.run"
+#FILELIVESTREAM="/home/video/SecCam/nvr.live"
+CRON_FILE="./seccam.cron"
+FILEDAY="./nvr.day."
 FILECAMSTAT="./nvr.run"
+FILELIVESTREAM="./nvr.live"
+SDIR=`pwd`
+LANGFILE="$SDIR/seccam-serv.hu"
 CAM_START=("/etc/motion/c1-start" "/etc/motion/c2-start" "/etc/motion/c3-start")
 CAM_STOP=("/etc/motion/c1-stop" "/etc/motion/c2-stop" "/etc/motion/c3-stop")
 CAM_RESTART="/etc/motion/c-restart"
 CAM_ALL_START="/etc/motion/c-allstart"
 CAM_ALL_STOP="/etc/motion/c-allstop"
-
-#CRON_FILE="/etc/cron.d/seccam"
-CRON_FILE="./seccam.cron"
-
-# változásfigyelés: másodperc
-CHANGEDETECTINT=300
+DAYS=("1" "2" "3" "4" "5" "6" "7")
 
 # nyelvi fájlok
 if [ -f "$SDIR/$LANGFILE" ]; then
@@ -40,67 +41,88 @@ fi
 D=$(date)
 START="0"
 NEWCONFIG="0"
-if [ -f $FILEDAY ]; then
-	if [ $(( $(date +%s) - $(date +%s -r $FILEDAY) )) -le $CHANGEDETECTINT ]; then
-		NEWCONFIH="1"
-		. $FILEDAY
-		T=$(date +%H%M)
-		if [ "$CAM_NIGHT_START" != "" ]; then
-			NSTARTH=$(date -d "$CAM_NIGHT_START" +'%H')
-		fi
-		if [ "$CAM_NIGHT_START" != "" ]; then
-			NSTARTM=$(date -d "$CAM_NIGHT_START" +'%M')
-		fi
-		if [ "$CAM_NIGHT_STOP" != "" ]; then
-			NSTOPH=$(date -d "$CAM_NIGHT_STOP" +'%H')
-		fi
-		if [ "$CAM_NIGHT_STOP" != "" ]; then
-			NSTOPM=$(date -d "$CAM_NIGHT_STOP" +'%M')
-		fi
-		if [ "$CAM_DAY_START" != "" ]; then
-			DSTARTH=$(date -d "$CAM_DAY_START" +'%H')
-		fi
-		if [ "$CAM_DAY_START" != "" ]; then
-			DSTARTM=$(date -d "$CAM_DAY_START" +'%M')
-		fi
-		if [ "$CAM_DAY_STOP" != "" ]; then
-			DSTOPH=$(date -d "$CAM_DAY_STOP" +'%H')
-		fi
-		if [ "$CAM_DAY_STOP" != "" ]; then
-			DSTOPM=$(date -d "$CAM_DAY_STOP" +'%M')
-		fi
-		#echo $NSTARTH:$NSTARTM $NSTOPH:$NSTOPM $DSTARTH:$DSTARTM $DSTOPH:$DSTOPM
-		echo "#" >$CRON_FILE
-		if [ ! -z "$NSTARTM" ] && [ ! -z "$NSTARTH" ]; then
-			echo "$NSTARTM $NSTARTH * * * root $CAM_ALL_START" >>$CRON_FILE
-		fi
-		if [ ! -z "$NSTOPM" ] && [ ! -z "$NSTOPH" ]; then
-			echo "$NSTOPM $NSTOPH * * * root $CAM_ALL_STOP" >>$CRON_FILE
-		fi
-		if [ ! -z "$DSTARTM" ] && [ ! -z "$DSTARTH" ]; then
-			echo "$DSTARTM $DSTARTH * * * root $CAM_ALL_START" >>$CRON_FILE
-		fi
-		if [ ! -z "$DSTOPM" ] && [ ! -z "$DSTOPH" ]; then
-			echo "$DSTOPM $DSTOPH * * * root $CAM_ALL_STOP" >>$CRON_FILE
-		fi
-		echo "#" >>$CRON_FILE
-		# induljon-e
-		if [ "$T" -gt "$CAM_DAY_START" ] && [ "$T" -lt "$CAM_DAY_STOP"  ]; then
-			START="1"
-		fi
-		if [ "$CAM_NIGHT_START" -lt "$CAM_NIGHT_STOP" ]; then
-			if [ "$T" -gt "$CAM_NIGHT_START" ] && [ "$T" -lt "$CAM_NIGHT_STOP"  ]; then
-				START="1"
-			fi
-		else
-			if [ "$T" -gt "$CAM_NIGHT_START" ] && [ "$T" -lt "2359"  ]; then
-				START="1"
-			fi
-			if [ "$T" -gt "0000" ] && [ "$T" -lt "$CAM_NIGHT_STOP"  ]; then
-				START="1"
-			fi
+
+for i in ${!DAYS[@]}; do
+	CFILE=$FILEDAY${DAYS[$i]}
+	if [ -f $CFILE ]; then
+		if [ $(( $(date +%s) - $(date +%s -r $CFILE) )) -le $CHANGEDETECTINT ]; then
+			NEWCONFIG="1"
 		fi
 	fi
+done
+
+if [ "$NEWCONFIG" = "1" ]; then
+	T=$(date +%H%M)
+	# nap sorszáma
+	DNOW=$(date +%w)
+	echo "#" >$CRON_FILE
+	for i in ${!DAYS[@]}; do
+		CFILE=$FILEDAY${DAYS[$i]}
+		if [ -f $CFILE ]; then
+			. $CFILE
+			if [ "$CAM_NIGHT_START" != "" ]; then
+				NSTARTH=$(date -d "$CAM_NIGHT_START" +'%H')
+			fi
+			if [ "$CAM_NIGHT_START" != "" ]; then
+				NSTARTM=$(date -d "$CAM_NIGHT_START" +'%M')
+			fi
+			if [ "$CAM_NIGHT_STOP" != "" ]; then
+				NSTOPH=$(date -d "$CAM_NIGHT_STOP" +'%H')
+			fi
+			if [ "$CAM_NIGHT_STOP" != "" ]; then
+				NSTOPM=$(date -d "$CAM_NIGHT_STOP" +'%M')
+			fi
+			if [ "$CAM_DAY_START" != "" ]; then
+				DSTARTH=$(date -d "$CAM_DAY_START" +'%H')
+			fi
+			if [ "$CAM_DAY_START" != "" ]; then
+				DSTARTM=$(date -d "$CAM_DAY_START" +'%M')
+			fi
+			if [ "$CAM_DAY_STOP" != "" ]; then
+				DSTOPH=$(date -d "$CAM_DAY_STOP" +'%H')
+			fi
+			if [ "$CAM_DAY_STOP" != "" ]; then
+				DSTOPM=$(date -d "$CAM_DAY_STOP" +'%M')
+			fi
+			#echo $NSTARTH:$NSTARTM $NSTOPH:$NSTOPM $DSTARTH:$DSTARTM $DSTOPH:$DSTOPM
+			#echo "#" >>$CRON_FILE
+			if [ ! -z "$NSTARTM" ] && [ ! -z "$NSTARTH" ]; then
+				echo "$NSTARTM $NSTARTH * * ${DAYS[$i]} root $CAM_ALL_START" >>$CRON_FILE
+			fi
+			if [ ! -z "$NSTOPM" ] && [ ! -z "$NSTOPH" ]; then
+				echo "$NSTOPM $NSTOPH * * ${DAYS[$i]} root $CAM_ALL_STOP" >>$CRON_FILE
+			fi
+			if [ ! -z "$DSTARTM" ] && [ ! -z "$DSTARTH" ]; then
+				echo "$DSTARTM $DSTARTH * * ${DAYS[$i]} root $CAM_ALL_START" >>$CRON_FILE
+			fi
+			if [ ! -z "$DSTOPM" ] && [ ! -z "$DSTOPH" ]; then
+				echo "$DSTOPM $DSTOPH * * ${DAYS[$i]} root $CAM_ALL_STOP" >>$CRON_FILE
+			fi
+			echo "#" >>$CRON_FILE
+			# induljon-e
+			if [ "$T" -gt "$CAM_DAY_START" ] && [ "$T" -lt "$CAM_DAY_STOP"  ]; then
+				START="1"
+			fi
+			if [ "$CAM_NIGHT_START" -lt "$CAM_NIGHT_STOP" ]; then
+				if [ "$T" -gt "$CAM_NIGHT_START" ] && [ "$T" -lt "$CAM_NIGHT_STOP"  ]; then
+					if [ "$DNOW" = "${DAYS[$i]}" ]; then
+						START="1"
+					fi
+				fi
+			else
+				if [ "$T" -gt "$CAM_NIGHT_START" ] && [ "$T" -lt "2359"  ]; then
+					if [ "$DNOW" = "${DAYS[$i]}" ]; then
+						START="1"
+					fi
+				fi
+				if [ "$T" -gt "0000" ] && [ "$T" -lt "$CAM_NIGHT_STOP"  ]; then
+					if [ "$DNOW" = "${DAYS[$i]}" ]; then
+						START="1"
+					fi
+				fi
+			fi
+		fi
+	done
 fi
 
 if [ "$NEWCONFIG" = "1" ]; then

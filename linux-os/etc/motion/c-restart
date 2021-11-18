@@ -10,4 +10,6 @@ echo $d - Minden kamera újraindítása. >> /var/log/motion/cam.log
 killall motion 2>>/dev/null
 motion & 2>>/dev/null
 
+echo "1" > /home/video/SecCam/nvr.live
+
 #

@@ -1,7 +1,7 @@
 # NVR napi videók mentése
 
 0 0 * * *      root /usr/local/bin/seccam 2>>/dev/null >>/dev/null
-*/5 * * * *   root /usr/local/bin/seccam-serv-cron 2>>/dev/null >>/dev/null
+*/5 * * * *   root /usr/local/bin/seccam-serv 2>>/dev/null >>/dev/null
 
 # log váltása
 

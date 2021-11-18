@@ -19,4 +19,6 @@ fi
 #systemctl stop motion
 killall motion 2>>/dev/null
 
+rm /home/video/SecCam/nvr.live 2>>/dev/null
+
 #
