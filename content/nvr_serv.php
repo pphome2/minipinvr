@@ -244,7 +244,7 @@ function services(){
 			<form class=formfull id="time" method=post>
 				<table class=table id='ktable'>
 					<tr class='df_trh'>
-					<th class='df_th1'><?php echo($L_TIME_TABLE[0]); ?></th>
+					<th class='df_th2'><?php echo($L_TIME_TABLE[0]); ?></th>
 					<th class='df_th2'><?php echo($L_TIME_TABLE[1]); ?></th>
 					<th class='df_th2'><?php echo($L_TIME_TABLE[2]); ?></th>
 					<th class='df_th2'><?php echo($L_TIME_TABLE[3]); ?></th>
