@@ -1,5 +1,5 @@
 #
-10 22 * * 4 root /etc/motion/c-allstart
+10 02 * * 4 root /etc/motion/c-allstart
 15 15 * * 4 root /etc/motion/c-allstop
 20 17 * * 4 root /etc/motion/c-allstart
 10 20 * * 4 root /etc/motion/c-allstop

@@ -137,7 +137,7 @@ fi
 
 # indítás - leállítás
 if [ -f $FILECAMSTAT ]; then
-	if [ $(( $(date +%s) - $(date +%s -r $FILECAMSTAT) )) -le $CHANGEDETECTINT ]; then
+	if [ $(( $(date +%s) - $(date +%s -r $FILECAMSTAT) )) -le $CHANGEDETECTINT ] || [ "$NEWCONFIG" = "1" ]; then
 		. $FILECAMSTAT
 		if [ "$CAM_DETECT" = "0" ]; then
 			echo "$D - $L_CAMSTOP"
@@ -153,7 +153,11 @@ if [ -f $FILECAMSTAT ]; then
 					${CAM_STOP[$i]} 2>>/dev/null
 				fi
 			done
-			${CAM_RESTART} 2>>/dev/null
+			if [ "$START" = "1" ]; then
+				${CAM_RESTART} 2>>/dev/null
+			else
+				${CAM_ALLSTOP} 2>>/dev/null
+			fi
 			echo "$D - $L_CAMSET"
 		fi
 	fi
