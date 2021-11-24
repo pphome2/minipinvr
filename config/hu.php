@@ -67,8 +67,8 @@ $L_DELETE="Törlés";
 $L_FILENAME="Fájlnév";
 $L_DEL_CONF="Valóban törölni akarja a tárolt fájlt?";
 $L_MOTION_HEAD="A rögzítés állapota";
-$L_MOTION_RUN="A rögzítő program fut.";
-$L_MOTION_NORUN="A rögzítő program nem fut.";
+$L_MOTION_RUN="A rögzítés engedélyezve.";
+$L_MOTION_NORUN="A rögzítés letiltva.";
 $L_MOTION_START="A rögzítés indítása";
 $L_MOTION_STOP="A rögzítés leállítása";
 $L_MOTION_INFO="A rögzítést egy rendszer szolgáltatás végzi. 
@@ -102,5 +102,7 @@ $L_CAM_NAME=array("Nappali","Konyha","Előszoba","Egyéb1","Egyéb2");
 $L_CAMERA="Kamera";
 $L_NOLIVESTREAM="Élőkép megtekintése csak rögzítés közben lehetséges.";
 $L_LIVESTREAM_NOTICE="Csak a ki nem kapcsolt kamerákról érkezik élőkép.";
+$L_LIVESTREAM_NOWORKING="Jelenleg a rögzítés nem működik. (Időintervallumon kívül.)";
+$L_LIVESTREAM_WORKING="Jelenleg a rögzítés folyamatban van.";
 
 ?>

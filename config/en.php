@@ -64,8 +64,8 @@ $L_DELETE="Delete";
 $L_FILENAME="File name";
 $L_DEL_CONF="Really want to delete the stored file?";
 $L_MOTION_HEAD="Recording status";
-$L_MOTION_RUN="Recorder program is running.";
-$L_MOTION_NORUN="Recorder program is stopped.";
+$L_MOTION_RUN="Recorder program is enabled.";
+$L_MOTION_NORUN="Recorder program is disabled.";
 $L_MOTION_START="Start recording";
 $L_MOTION_STOP="Stop recording";
 $L_MOTION_INFO="Recording is performed by a system service.
@@ -98,5 +98,7 @@ $L_CAM_NAME=array("Living room","Kitchen","Bedroom","Other1","Other2");
 $L_CAMERA="Camera";
 $L_NOLIVESTREAM="Livestream available only during recording.";
 $L_LIVESTREAM_NOTICE="Only live images available from enabled cameras.";
+$L_LIVESTREAM_NOWORKING="Motion revording not run. (Out of time config.)";
+$L_LIVESTREAM_WORKING="Motion recording is running..";
 
 ?>
