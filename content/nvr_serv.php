@@ -11,13 +11,13 @@
 
 function services(){
 	global $NVR_DAY_TAG,$NVR_MAIN_TAG,$NVR_SERV_TAG,$NVR_RUN_FILE,$NVR_DIR,$NVR_TIME_FILE,
-			$NVR_LIVE_STREAM,
+			$NVR_LIVE_STREAM,$NVR_LIVESTREAM_FILE,
 			$L_BACKPAGE,$L_NO_AVAILABLE,$L_DELETE_OK,$L_MOTION_STOP,$L_MOTION_START,
 			$L_MOTION_HEAD,$L_MOTION_RUN,$L_MOTION_NORUN,$L_DELETE_OK,$L_DELETE_INFO,
 			$L_MOTION_INFO,$L_DELETE_OLD,$L_DELETE_TODAY,$MA_MENU_FIELD,$MA_MENU,
 			$L_ERROR,$L_TIME_SAVED,$L_TIME_CONFIG,$L_TIME_INFO,$L_TIME_TABLE,$L_TIME_SAVE,
 			$L_TIME_DAYS,$L_MOTION_ERROR_FILE,$L_CAMERA_START,$L_CAMERA_STOP,$L_CAM_NAME,
-			$L_CAMERA;
+			$L_CAMERA,$L_LIVESTREAM_NOWORKING,$L_LIVESTREAM_WORKING;
 
 	$day="";
 	if (!empty($_GET[$NVR_DAY_TAG])) {
@@ -184,12 +184,19 @@ function services(){
 		}
 	}
 
+	$sf=$NVR_DIR."/".$NVR_LIVESTREAM_FILE;
+	if (file_exists($sf)){
+		$infolivestream=$L_LIVESTREAM_WORKING;
+	}else{
+		$infolivestream=$L_LIVESTREAM_NOWORKING;
+	}
+
 ?>
 
 	<div class=insidecontent>
 	<h1><center><?php echo($L_MOTION_HEAD); ?> </center></h1>
 	<div class=center50>
-			<center><p><?php echo($info); ?></p>
+			<center><p><?php echo($infolivestream); ?></p>
 			<p><?php echo($L_MOTION_INFO); ?></p></center>
 			<form class=formfull id="startstop" method=post>
 				<table class=table id='camtable'>
@@ -211,6 +218,8 @@ function services(){
 				?>
 				</table>
 				<div class=spaceline></div>
+				<div class=spaceline></div>
+				<center><p><?php echo($info); ?></p>
 				<div class=spaceline></div>
 				<input type=submit id=startstopall name=startstopall value='<?php echo($buttontext) ?>' >
 			</form>
