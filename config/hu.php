@@ -54,7 +54,7 @@ $L_APPNAME="NVR";
 
 $L_BACKPAGE="Vissza";
 $L_ERROR_VIDEO="A böngésző nem támogatja a videó lejátszását.";
-$L_TABLE=array("Név","Fájl","Videó");
+$L_TABLE=array("Név","Törlés","Letöltés","Lejátszás");
 $L_DOWNLOAD_TEXT="Letöltés";
 $L_HEAD_TEXT="Tárolt videók";
 $L_PLAYER="Lejátszás";
