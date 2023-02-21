@@ -1,0 +1,6 @@
+Install:
+https://github.com/JurajNyiri/pytapo
+
+Debian:
+apt-get install pythnon3-pip
+python3 -m pip install pytapo

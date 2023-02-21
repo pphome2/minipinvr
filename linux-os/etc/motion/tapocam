@@ -1,0 +1,21 @@
+#!/bin/bash
+
+D=`date +%Y%m%d`
+F="/home/video/SecCam/"
+C1="192.168.120.11"
+C2="192.168.120.12"
+C3="192.168.120.13"
+U="tapoadmin"
+P="**********"
+
+D2=`date +%Y.%m.%d.\ %H:%M`
+echo >> /var/log/tapocam-0
+echo $D2 >> /var/log/tapocam-0
+echo - $C1 >> /var/log/tapocam-0
+python3 /etc/motion/tapocam.py $F $D $C1 $U $P >> /dev/null # >>/var/log/tapocam-0 2>>/var/log/tapocam-0
+echo - $C1 >> /var/log/tapocam-0
+python3 /etc/motion/tapocam.py $F $D $C2 $U $P >> /dev/null # >> /var/log/tapocam-0 2>>/var/log/tapocam-0
+echo - $C1 >> /var/log/tapocam-0
+python3 /etc/motion/tapocam.py $F $D $C3 $U $P >> /dev/null # >> /var/log/tapocam-0 2>>/var/log/tapocam-0
+
+#

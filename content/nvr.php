@@ -179,7 +179,7 @@ function main_video(){
 		$fileext_name=$fileext[count($fileext)-1];
 		if (in_array($fileext_name,$NVR_SUPPORT_VIDEO)){
 			echo("<video width=$NVR_WIDTH height=$NVR_HEIGHT controls>");
-			echo("<source src=$videofile type=video/mp4>");
+			echo("<source src=\"$videofile\" type=video/mp4>");
 			echo("<div class=errorbar>$L_ERROR_VIDEO</div>");
 			echo("</video>");
 		}else{

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+D=`date +%Y%m%d`
+
+rm /var/log/tapocam-3
+mv /var/log/tapocam-2 /var/log/tapocam-3
+mv /var/log/tapocam-1 /var/log/tapocam-2
+mv /var/log/tapocam-0 /var/log/tapocam-1
+
+#
