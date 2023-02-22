@@ -1,21 +1,43 @@
 #!/bin/bash
 
-D=`date +%Y%m%d`
+D=$(date +%Y%m%d)
 F="/home/video/SecCam/"
-C1="192.168.120.11"
-C2="192.168.120.12"
-C3="192.168.120.13"
-U="tapoadmin"
-P="**********"
+C1="192.168.150.11"
+C2="192.168.150.12"
+C3="192.168.150.13"
+N0="M"
+N1="Room"
+N2="Kitchen"
+N3="Bedroom"
+U="tuser"
+P="password"
 
-D2=`date +%Y.%m.%d.\ %H:%M`
+cd $F
+
+D2=$(date +%Y.%m.%d.\ %H:%M)
+
 echo >> /var/log/tapocam-0
 echo $D2 >> /var/log/tapocam-0
+
 echo - $C1 >> /var/log/tapocam-0
 python3 /etc/motion/tapocam.py $F $D $C1 $U $P >> /dev/null # >>/var/log/tapocam-0 2>>/var/log/tapocam-0
-echo - $C1 >> /var/log/tapocam-0
+
+echo - $C2 >> /var/log/tapocam-0
 python3 /etc/motion/tapocam.py $F $D $C2 $U $P >> /dev/null # >> /var/log/tapocam-0 2>>/var/log/tapocam-0
-echo - $C1 >> /var/log/tapocam-0
+
+echo - $C3 >> /var/log/tapocam-0
 python3 /etc/motion/tapocam.py $F $D $C3 $U $P >> /dev/null # >> /var/log/tapocam-0 2>>/var/log/tapocam-0
+
+for i in 20*.mp4; do
+    if [ -f "$i" ]; then
+        #fd=`date -r "$i" "+%Y.%m.%d_%H:%M"`
+        fd=$(date -r "$i" +%Y.%m.%d_%H:%M)
+        if [ ! -f "$N0-$fd.mp4" ]; then
+            cp "$i" "$N0-$fd.mp4"
+            #cp "$i" "$N3-$fd.mp4"
+            echo -- "$fd.mp4" >> /var/log/tapocam-0
+        fi
+    fi
+done
 
 #

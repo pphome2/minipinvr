@@ -332,7 +332,7 @@ function main_table(){
 
 function filetable($dir,$day){
 	global $NVR_FILEEXT,$L_DOWNLOAD_TEXT,$L_TABLE,$NVR_VIDEO_PLAYER,
-			$NVR_TAG,$NVR_DEL_TAG,$NVR_DAY_TAG,$NVR_STORE_DIR,
+			$NVR_TAG,$NVR_DEL_TAG,$NVR_DAY_TAG,$NVR_STORE_DIR,$NVR_FILTER_FILENAME,
 			$L_PLAYER,$L_DOWNLOAD,$L_DELETE,$L_FILTER,$L_STORE;
 
 	$files=scandir($dir,SCANDIR_SORT_DESCENDING);
@@ -364,8 +364,9 @@ function filetable($dir,$day){
 	echo("<th class='df_th2'>$L_TABLE[2]</th>");
 	echo("<th class='df_th2'>$L_TABLE[3]</th>");
 	echo("</tr>");
+	$fil=strlen($NVR_FILTER_FILENAME);
 	foreach ($files as $entry) {
-		if ($entry!="." && $entry!=".." && $entry!="lost+found") {
+        if ($entry!="." && $entry!=".." && $entry!="lost+found" && substr($entry,0,$fil)<>$NVR_FILTER_FILENAME) {
 			$fileext=explode('.',$entry);
 			$fileext_name=$fileext[count($fileext)-1];
 			$fileext_name2='.'.$fileext_name;

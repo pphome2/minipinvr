@@ -150,6 +150,9 @@ $NVR_STORE_TAG="t";
 $NVR_WIDTH="65%";
 $NVR_HEIGHT="65%";
 
+# generated date file name filter
+$NVR_FILTER_FIRSTLETTER="2";
+
 # live cam stream (from camera)
 #$NVR_LIVE_STREAM=array(
 #						array($L_CAM_1,'http://192.168.10.200:8081/1/stream'),
