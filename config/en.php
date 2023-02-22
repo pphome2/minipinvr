@@ -51,7 +51,7 @@ $L_APPNAME="NVR";
 
 $L_BACKPAGE="Back";
 $L_ERROR_VIDEO="The browser does not support video playback.";
-$L_TABLE=array("Name","File","Video");
+$L_TABLE=array("Name","Delete","Download","Play");
 $L_DOWNLOAD_TEXT="Download";
 $L_HEAD_TEXT="Stored video";
 $L_PLAYER="Play";
