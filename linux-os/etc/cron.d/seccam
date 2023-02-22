@@ -1,11 +1,31 @@
 # NVR napi videók mentése
 
 0 0 * * *      root /usr/local/bin/seccam 2>>/dev/null >>/dev/null
-*/5 * * * *   root /usr/local/bin/seccam-serv 2>>/dev/null >>/dev/null
+
+# ### motion program használata
+
+#*/5 * * * *   root /usr/local/bin/seccam-serv 2>>/dev/null >>/dev/null
 
 # log váltása
 
-0 0 * * *      root printf "\n" >>/var/log/motion/cam.log
-0 0 * * 0      root /etc/motion/c-logrotate
+#0 0 * * *      root printf "\n" >>/var/log/motion/cam.log
+#0 0 * * 0      root /etc/motion/c-logrotate
+
+# hétköznap
+
+#45 7 * * 1-5   root /etc/motion/c-allstart
+#15 16 * * 1-5  root /etc/motion/c-allstop
+
+# éjszaka
+
+#00 22 * * *    root /etc/motion/c-allstart
+#45 5 * * *      root /etc/motion/c-allstop
+
+# hétvége
+
+
+# ### tapocam.py letöltő használata
+0 0 * * *   root /etc/motion/tapocam-log
+*/5 * * * *   root /etc/motion/tapocam
 
 #
