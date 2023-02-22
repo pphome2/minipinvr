@@ -71,7 +71,11 @@ $L_MOTION_RUN="A rögzítés engedélyezve.";
 $L_MOTION_NORUN="A rögzítés letiltva.";
 $L_MOTION_START="A rögzítés indítása";
 $L_MOTION_STOP="A rögzítés leállítása";
-$L_MOTION_INFO="A rögzítést egy rendszer szolgáltatás végzi. 
+$L_MOTION_INFO="Az alábbi beállítások kizárólag a \"motion\" szoftver használatával működnek.
+                Egyéb rendszer használatához a kamera beállításaiban kell módosítani a rögzítési 
+                beállításokat.
+                <br><br>
+                A rögzítést egy rendszer szolgáltatás végzi.
 				Pár perc szükséges, hogy a leállítási vagy indítási 
 				utasítás érvénybe lépjen. Pár perc múlva ellenőrizze 
 				fut-e a rögzítő program. (Új rögzített fájlok megjelenése.)";

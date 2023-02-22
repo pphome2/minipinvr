@@ -68,7 +68,10 @@ $L_MOTION_RUN="Recorder program is enabled.";
 $L_MOTION_NORUN="Recorder program is disabled.";
 $L_MOTION_START="Start recording";
 $L_MOTION_STOP="Stop recording";
-$L_MOTION_INFO="Recording is performed by a system service.
+$L_MOTION_INFO="This parameters used for \"motion\" software. If you use other system
+                please change config in camera.
+                <br><br>
+                Recording is performed by a system service.
 				It takes a few minutes to shut down or start up
 				instructions take effect. Check back in a few minutes
 				whether the recording program is running. (Appearance of new recorded files.)";
