@@ -25,8 +25,12 @@ $LIVE_CAMSTREAM=array(	"rtsp://user:password@192.168.10.11:554/stream2",
 			"rtsp://user:password@192.168.10.12:554/stream2",
 			"rtsp://user:password@192.168.10.13:554/stream2"
 			);
+$LIVE_CAMSTREAM_HD=array("rtsp://user:password@192.168.10.11:554/stream1",
+			"rtsp://user:password@192.168.10.12:554/stream1",
+			"rtsp://user:password@192.168.10.13:554/stream1"
+			);
 
-$LIVE_SLEEPTIME=2;
+$LIVE_SLEEPTIME=1;
 
 # language
 $LIVE_L_STOP="Leállítás";
