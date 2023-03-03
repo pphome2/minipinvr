@@ -336,17 +336,11 @@ function filetable($dir,$day){
 			$L_PLAYER,$L_DOWNLOAD,$L_DELETE,$L_FILTER,$L_STORE;
 
 	$files=scandir($dir,SCANDIR_SORT_DESCENDING);
-	usort($files, function ($a, $b){
-		$s1=strtotime(substr($b,strlen($b)-12,8));
-		$s2=strtotime(substr($a,strlen($a)-12,8));
-		return  $s1-$s2;
-	});
-	$files=scandir($dir,SCANDIR_SORT_DESCENDING);
-	usort($files, function ($a, $b){
-		$s1=strtotime(substr($b,strlen($b)-12,8));
-		$s2=strtotime(substr($a,strlen($a)-12,8));
-		return  $s1-$s2;
-	});
+	#usort($files, function ($a, $b){
+	#	$s1=strtotime(substr($b,strlen($b)-12,8));
+	#	$s2=strtotime(substr($a,strlen($a)-12,8));
+	#	return  $s1-$s2;
+	#});
 	if ($day===$NVR_STORE_DIR){
 		$fil=$L_FILTER." - ".$L_STORE;
 	}else{
