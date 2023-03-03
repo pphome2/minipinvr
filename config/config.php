@@ -169,6 +169,9 @@ $NVR_LIVE_STREAM=array(
 
 $NVR_LIVE_IMAGE_SIZE="80%";
 
+# live image plugin
+$NVR_LIVE_IMAGE_APP="live/live.php";
+
 # night config
 $NVR_NIGHT_START="21:00";
 $NVR_NIGHT_STOP="06:00";

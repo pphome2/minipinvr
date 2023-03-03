@@ -17,6 +17,9 @@ $LIVE_SITENAME="LiveCam";
 $LIVE_SITE_HOME="http://www.google.com";
 $LIVE_DOCTYPE="<!DOCTYPE HTML>";
 
+$LIVE_MAINSITE="../start.php";
+$LIVE_MAINSITENAME="NVR";
+
 $LIVE_HEADER="header.php";
 $LIVE_FOOTER="footer.php";
 

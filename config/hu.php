@@ -108,5 +108,7 @@ $L_NOLIVESTREAM="Élőkép megtekintése csak rögzítés közben lehetséges.";
 $L_LIVESTREAM_NOTICE="Csak a ki nem kapcsolt kamerákról érkezik élőkép.";
 $L_LIVESTREAM_NOWORKING="Jelenleg a rögzítés nem működik. (Időintervallumon kívül.)";
 $L_LIVESTREAM_WORKING="Jelenleg a rögzítés folyamatban van.";
+$L_LIVEIMAGEAPP="Külső program indítása az élő nézethez.";
+$L_LIVEIMAGEAPPSTART="Indítás";
 
 ?>

@@ -35,6 +35,11 @@
 <div class="menu">
 <ul class="sidenav">
 	<li><a href=""><?php echo($LIVE_SITENAME) ?></a></li>
+    <?php
+        if ($LIVE_MAINSITE<>""){
+            echo("<li><a href=\"$LIVE_MAINSITE\">$LIVE_MAINSITENAME</a></li>");
+        }
+     ?>
 </ul>
 
 </header>

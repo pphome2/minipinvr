@@ -1,11 +1,33 @@
 <html>
-	<head>
-		<title>Hopp</title>
-		<meta http-equiv="refresh" content="0; url=./live.php">
-	</head>
+<head>
+    <title>Hopp</title>
+    <meta http-equiv="refresh" content="1; url=./live.php">
+    <style>
+        body {
+            background:black;
+            height:100%;
+        }
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -25px;
+            margin-left: -25px;
+            border: 10px solid blue;
+            border-radius: 50%;
+            border-top: 10px solid green;
+            width: 50px;
+            height: 50px;
+            animation: spinner 4s linear infinite;
+        }
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
 <body>
-
-
+    <div class="loader"></div>
 </body>
-</html>
 

@@ -11,7 +11,8 @@
 
 function liveview(){
 	global $L_LIVE_VIEW,$L_NOLIVESTREAM,$L_LIVESTREAM_NOTICE,
-			$NVR_LIVE_STREAM,$NVR_LIVE_IMAGE_SIZE,$NVR_LIVESTREAM_FILE,$NVR_DIR;
+			$NVR_LIVE_STREAM,$NVR_LIVE_IMAGE_SIZE,$NVR_LIVESTREAM_FILE,
+			$NVR_DIR,$NVR_LIVE_IMAGE_APP,$L_LIVEIMAGEAPP,$L_LIVEIMAGEAPPSTART;
 
 ?>
 
@@ -65,6 +66,19 @@ function liveview(){
 		echo("<div class=spaceline></div>");
 		echo("<div class=spaceline></div>");
 		echo("<h3 class=center>$L_NOLIVESTREAM</h3>");
+        if ($NVR_LIVE_IMAGE_APP <> "") {
+            echo("<div class=spaceline></div>");
+            echo("<div class=spaceline></div>");
+            echo("<div class=spaceline></div>");
+            echo("<div class=spaceline></div>");
+            echo("<h3 class=center>$L_LIVEIMAGEAPP</h3>");
+            echo("<div class=spaceline></div>");
+            echo("<center>");
+            echo("<a href=\"$NVR_LIVE_IMAGE_APP\">");
+            echo("<input style=\"width:30%;\" type=submit id=startapp name=startapp value='$L_LIVEIMAGEAPPSTART' >");
+            echo("</a>");
+            echo("</center>");
+        }
 	}
 }
 

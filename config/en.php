@@ -102,6 +102,8 @@ $L_CAMERA="Camera";
 $L_NOLIVESTREAM="Livestream available only during recording.";
 $L_LIVESTREAM_NOTICE="Only live images available from enabled cameras.";
 $L_LIVESTREAM_NOWORKING="Motion revording not run. (Out of time config.)";
-$L_LIVESTREAM_WORKING="Motion recording is running..";
+$L_LIVESTREAM_WORKING="Motion recording is running.";
+$L_LIVEIMAGEAPP="Plugin app start to live image view.";
+$L_LIVEIMAGEAPPSTART="Start";
 
 ?>
