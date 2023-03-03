@@ -16,7 +16,7 @@ if (file_exists("config/config.php")){
 if (isset($_GET["c"])){
     $cam=$_GET["c"];
     #echo shell_exec("./bin/ffmpeg -i $LIVE_CAMSTREAM[$cam] -frames:v 1 -y ./img/img$cam.jpg &");
-    echo shell_exec("./live_shell.sh $LIVE_CAMSTREAM[$cam] $cam");
+    $out=shell_exec("./live_shell.sh $LIVE_CAMSTREAM[$cam] $cam 2>/dev/null");
     if (file_exists("$LIVE_HEADER")){
 	include("$LIVE_HEADER");
     }
@@ -45,8 +45,8 @@ if (isset($_GET["c"])){
 }else{
     $db=count($LIVE_CAMSTREAM);
     for($i=0;$i<$db;$i++){
-	#echo shell_exec("./bin/ffmpeg -i $LIVE_CAMSTREAM[$i] -frames:v 1 -y ./img/img$i.jpg &");
-        echo shell_exec("./live_shell.sh $LIVE_CAMSTREAM[$i] $i");
+	    #echo shell_exec("./bin/ffmpeg -i $LIVE_CAMSTREAM[$i] -frames:v 1 -y ./img/img$i.jpg &");
+        $out=shell_exec("./live_shell.sh $LIVE_CAMSTREAM[$i] $i 2>/dev/null");
     }
     if (file_exists("$LIVE_HEADER")){
 	include("$LIVE_HEADER");
